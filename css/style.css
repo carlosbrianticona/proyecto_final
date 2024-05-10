@@ -1,52 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+
 *{
     padding: 0;
     margin: 0;
     box-sizing : border-box;
 }
 
-header{background-color: rgba(244, 241, 255, 0.904);
-    height: 100px;
-    text-align: center; 
-
+body{
+    font-family: "Josefin Sans", sans-serif;
 }
 
-nav ul{
+.conteiner{
     display: flex;
-    list-style: none;
-    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-right: 60px;
+    height: 80px;
 }
 
-nav ul li a{
+.conteiner .nav-link{
+    list-style: none;
+}
+
+.conteiner .nav-link li{
+    display: inline-block;
+    padding: 0 30px;
+}
+
+.conteiner .nav-link li:hover{
+    transform: scale(1.1);
+}
+
+
+.conteiner .nav-link a{
+    color: green;
+    font-size: 700;
     text-decoration: none;
-    margin: 0 20px;
+}
+
+.nav-link{
+    position: relative;
+    top: 5px;
+}
+
+.texto{
+    font-size: 2vh;
+    padding-top: 10px;
+    margin-left: 10px;
 }
 
 .img{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     position: relative;
     bottom: 5px;
 }
 
 .inicio{
     display: flex;
-    justify-content: start;
-    padding-top: 25px;
-    margin-left: 50px;
+}
+
+.container{
+    position: relative;
+    bottom: 5px;
 }
 
 
-.links{
-    padding-top: 30px;
-    
-}
 
-.caja{
-    display: flex;
-    justify-content: space-between;
-}
 
-.texto{
-    padding-top: 10px;
-    margin-left: 10px;
-}
+
