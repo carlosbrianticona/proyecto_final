@@ -3,13 +3,19 @@
 
 *{
     padding: 0;
-    margin: 0;
     box-sizing : border-box;
 }
 
 body{
-    font-family: "Josefin Sans", sans-serif;
+    font-family: "Josefin Sans", sans-serif !important;
 }
+
+body h1{
+    font-weight: 700 !important;
+}
+
+
+
 
 .conteiner{
     display: flex;
@@ -67,7 +73,36 @@ body{
     bottom: 5px;
 }
 
+.slide{
+    margin-top: 10px;
+}
 
+.slide img {
+    height: 65vh;
+    width: auto;
+}
+.portada{
+    display: flex;
+    align-items: center;
+    position: relative;
+    left: 300px;
+}
 
+.btn-round {
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    padding: 0 !important;
+    text-align: center !important;
+}
 
+.palabra{
+    position: relative !important;
+    bottom: 20px !important;
+}
+
+.enlace{
+    text-decoration: none;
+    color: green;
+}
 
