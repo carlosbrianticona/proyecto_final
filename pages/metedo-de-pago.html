@@ -44,7 +44,7 @@
                   <a class="nav-link active" href="./pages/club.html">CLUB</a>
                 </li>
                 <li class="nav-item px-4">
-                  <a class="nav-link active" href="./pages/socio.html">SOCIO</a>
+                  <a class="nav-link active" href="../pages/socio.html">SOCIO</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
@@ -68,16 +68,35 @@
             </div>
         </nav>
     </header>
-
     <main>
-        <h1 class="text-center mt-4">VOLEY</h1>
+        <h1 id="header"class="text-center mt-4">VOLEY</h1>
         <div class="container">
-            <form class="row">
-
-            </form>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form class="row g-3 mt-5">
+                        <div class="col-md-2">
+                            <p class="text-white"><strong>¿Sos socio?</strong></p>
+                        </div>
+                        <div class="form-check col-sm-3">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">Transferencia</label>
+                        </div>
+                        <div class="form-check col-md-2">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">Debito</label>
+                        </div>
+                        <div class="form-check col-md-1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">Efectivo</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+        
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>

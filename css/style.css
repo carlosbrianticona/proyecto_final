@@ -8,13 +8,31 @@
 
 body{
     font-family: "Josefin Sans", sans-serif !important;
+    background: url(../img/fondo-sesion.jpg) no-repeat !important;
+    background-size: cover;
+    background-position: center;
 }
 
 body h1{
     font-weight: 700 !important;
+    color: #fff;
+}
+
+body h2{
+    font-weight: 700 !important;
+    font-size: 3vh;
+}
+
+body label{
+    color: #fff;
 }
 
 
+header{
+    background-color: #fff;
+    position: relative;
+    bottom: 10px;
+}
 
 
 .conteiner{
@@ -103,6 +121,14 @@ body h1{
 
 .enlace{
     text-decoration: none;
-    color: green;
+    color: white;
 }
+
+/* form-de-reservas */
+.input{
+    position: relative;
+    bottom: 10px;
+}
+/* fin */
+
 
