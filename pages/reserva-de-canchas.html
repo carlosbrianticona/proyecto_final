@@ -26,7 +26,7 @@
                 </ul>
             </nav>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a href="admin.html"><button type="button" class="btn btn-success">Administrador</button></a>
+                <a href="admin.php"><button type="button" class="btn btn-success">Administrador</button></a>
                 <select name="idioma" id="idioma">
                     <option value="español">Español</option>
                     <option value="ingles">Ingles</option>
@@ -35,19 +35,17 @@
             </div>
         </div>
         <nav class="navbar navbar-expand-lg bg-success navbar-dark">
-
             <div class="container">
             <div class="collapse navbar-collapse">
-        
                 <ul class="navbar-nav m-auto mb-2 mb-lg-0">
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="./pages/club.html">CLUB</a>
                 </li>
                 <li class="nav-item px-4">
-                  <a class="nav-link active" href="./pages/socio.html">SOCIO</a>
+                  <a class="nav-link active" href="../pages/socio.php">SOCIO</a>
                 </li>
                 <li class="nav-item px-4">
-                  <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
+                  <a class="nav-link active" href="../pages/reserva-de-canchas.php">RESERVAS DE CANCHA</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="./pages/contacto.html">CONTACTO</a>
@@ -63,7 +61,6 @@
                     </ul>
                 </li>
                 </ul>
-            
             </div>
             </div>
         </nav>
@@ -71,111 +68,94 @@
     <main>
         <h1 class="text-center display-6 mt-4 font-weight-bold">RESERVA DE CANCHAS</h1>
         <p class="text-center p-4 text-white"><strong>¿Sos socio?</strong> El precio por hora es de 5000$, recorda que siendo socio tenes un 20% de descuento en las reservas.
-        <a class="enlace btn btn-success" href="socio.html"><strong>Quiero ser socio</strong></a>
+        <a class="enlace btn btn-success" href="socio.php"><strong>Quiero ser socio</strong></a>
         </p>
-
-<div id="galeria" class="container">
-    <div class="row row-cols-4">
-
-      <div class="col-lg-3 pt-0">
-
-          <img src="../img/futbol.jpg" class="card-img-top" alt="foto1">
-          <div class="card card-body">
-              <section class="row pt-2 mx-auto">
-                  <div class="col col-3">
-                  <a href="form-de-reservas.html" class="p-0 m-auto btn btn-success"><dt>FUTBOL</dt></a>
-                  </div>
-              </section>
-              <div class="d-flex justify-content-between mt-4">
-                <div class="col col-4">
-                <h5 class="card-title pb-2">DIAS</h5>
-                <p class="card-text">Lunes Martes Miercoles Jueves Viernes</p>
+        <div id="galeria" class="container">
+            <div class="row row-cols-4">
+                <div class="col-lg-3 pt-0">
+                    <img src="../img/futbol.jpg" class="card-img-top" alt="foto1">
+                    <div class="card card-body">
+                        <section class="row pt-2 mx-auto">
+                            <div class="col col-3">
+                                <a href="form-de-reservas.php?deporte=futbol" class="p-0 m-auto btn btn-success"><dt>FUTBOL</dt></a>
+                            </div>
+                        </section>
+         <!--           <div class="d-flex justify-content-between mt-4">
+                            <div class="col col-4">
+                                <h5 class="card-title pb-2">DIAS</h5>
+                                <p class="card-text">Lunes Martes Miercoles Jueves Viernes</p>
+                            </div>
+                            <div class="col col-6">
+                                <h5 class="card-title pb-2">HORARIOS</h5>
+                                <p class="card-text">7:00 a 10:00 11:00 a 13:00 15:00 a 17:00 17:30 a 19:30 20:00 a 22:00</p>
+                            </div>
+                        </div>   -->
+                    </div>
                 </div>
-    
-                <div class="col col-6">
-                    <h5 class="card-title pb-2">HORARIOS</h5>
-                    <p class="card-text">7:00 a 10:00 11:00 a 13:00 15:00 a 17:00 17:30 a 19:30 20:00 a 22:00</p>
+                <div class="col-lg-3 pt-0">
+                    <img src="../img/voley.png" class="card-img-top" alt="foto2">
+                    <div class="card card-body">
+                        <section class="row pt-2 mx-auto">
+                            <div class="col col-3">
+                                <a href="form-de-reservas.php?deporte=voley" class="p-0 m-auto btn btn-success"><dt>VOLEY</dt></a>
+                            </div>
+                        </section>
+            <!--        <div class="d-flex justify-content-between mt-4">
+                            <div class="col col-4">
+                                <h5 class="card-title pb-2">DIAS</h5>
+                                <p class="card-text">Lunes Martes Miercoles Jueves Viernes</p>
+                            </div>
+                            <div class="col col-6">
+                                <h5 class="card-title pb-2">HORARIOS</h5>
+                                <p class="card-text">7:00 a 10:00 11:00 a 13:00 15:00 a 17:00 17:30 a 19:30 20:00 a 22:00</p>
+                            </div>
+                        </div>   -->
+                    </div>
                 </div>
-            </div>
-          </div>
-          
-      </div>
-  
-
-      <div class="col-lg-3 pt-0">
-
-          <img src="../img/voley.png" class="card-img-top" alt="foto2">
-          <div class="card card-body">
-              <section class="row pt-2 mx-auto">
-              <div class="col col-3">
-              <a href="form-de-reservas.html" class="p-0 m-auto btn btn-success"><dt>VOLEY</dt></a>
-              </div>
-              </section>
-              <div class="d-flex justify-content-between mt-4">
-                <div class="col col-4">
-                <h5 class="card-title pb-2">DIAS</h5>
-                <p class="card-text">Lunes Martes Miercoles Jueves Viernes</p>
+                <div class="col-lg-3 pt-0">
+                    <img src="../img/hockey.png" class="card-img-top" alt="foto3">
+                    <div class="card card-body">
+                        <section class="row pt-2 mx-auto">
+                            <div class="col col-3">
+                                <a href="form-de-reservas.php?deporte=hockey" class="p-0 m-auto btn btn-success"><dt>HOCKEY</dt></a>
+                            </div>
+                        </section>
+          <!--          <div class="d-flex justify-content-between mt-4">
+                            <div class="col col-4">
+                                <h5 class="card-title pb-2">DIAS</h5>
+                                <p class="card-text">Lunes Martes Miercoles Jueves Viernes</p>
+                            </div>
+                            <div class="col col-6">
+                                <h5 class="card-title pb-2">HORARIOS</h5>
+                                <p class="card-text">7:00 a 10:00 11:00 a 13:00 15:00 a 17:00 17:30 a 19:30 20:00 a 22:00</p>
+                            </div>
+                        </div>  -->
+                    </div>
                 </div>
-    
-                <div class="col col-6">
-                    <h5 class="card-title pb-2">HORARIOS</h5>
-                    <p class="card-text">7:00 a 10:00 11:00 a 13:00 15:00 a 17:00 17:30 a 19:30 20:00 a 22:00</p>
+                <div class="col-lg-3 pt-0">
+                    <img src="../img/basquet.png" class="card-img-top" alt="foto3">
+                    <div class="card card-body">
+                        <section class="row pt-2 mx-auto">
+                            <div class="col col-3">
+                                <a href="form-de-reservas.php?deporte=basquet" class="p-0 m-auto btn btn-success"><dt>BASQUET</dt></a>
+                            </div>
+                        </section>
+          <!--          <div class="d-flex justify-content-between mt-4">
+                            <div class="col col-4">
+                                <h5 class="card-title pb-2">DIAS</h5>
+                                <p class="card-text">Lunes Martes Miercoles Jueves Viernes</p>
+                            </div>
+                            <div class="col col-6">
+                                <h5 class="card-title pb-2">HORARIOS</h5>
+                                <p class="card-text">7:00 a 10:00 11:00 a 13:00 15:00 a 17:00 17:30 a 19:30 20:00 a 22:00</p>
+                            </div>
+                        </div>  -->
+                    </div>
                 </div>
-            </div>
-          </div>
-      </div>
-
-      <div class="col-lg-3 pt-0">
-
-          <img src="../img/hockey.png" class="card-img-top" alt="foto3">
-          <div class="card card-body">
-              <section class="row pt-2 mx-auto">
-                  <div class="col col-3">
-                  <a href="form-de-reservas.html" class="p-0 m-auto btn btn-success"><dt>HOCKEY</dt></a>
-                  </div>
-              </section>
-              
-              <div class="d-flex justify-content-between mt-4">
-                <div class="col col-4">
-                <h5 class="card-title pb-2">DIAS</h5>
-                <p class="card-text">Lunes Martes Miercoles Jueves Viernes</p>
-                </div>
-    
-                <div class="col col-6">
-                    <h5 class="card-title pb-2">HORARIOS</h5>
-                    <p class="card-text">7:00 a 10:00 11:00 a 13:00 15:00 a 17:00 17:30 a 19:30 20:00 a 22:00</p>
-                </div>
-            </div>
-          </div>
-      </div>
-
-      <div class="col-lg-3 pt-0">
-
-        <img src="../img/basquet.png" class="card-img-top" alt="foto3">
-        <div class="card card-body">
-            <section class="row pt-2 mx-auto">
-                <div class="col col-3">
-                <a id="cambio-de-h1"  href="form-de-reservas.html" class="p-0 m-auto btn btn-success"><dt>BASQUET</dt></a>
-                </div>
-            </section>
-            
-        <div class="d-flex justify-content-between mt-4">
-            <div class="col col-4">
-            <h5 class="card-title pb-2">DIAS</h5>
-            <p class="card-text">Lunes Martes Miercoles Jueves Viernes</p>
-            </div>
-
-            <div class="col col-6">
-                <h5 class="card-title pb-2">HORARIOS</h5>
-                <p class="card-text">7:00 a 10:00 11:00 a 13:00 15:00 a 17:00 17:30 a 19:30 20:00 a 22:00</p>
             </div>
         </div>
-        </div>
-    </div>
-
-    </div>
-  </div>
     </main>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

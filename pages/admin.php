@@ -21,7 +21,7 @@
         
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="./pages/admin.html"><button type="button" class="btn btn-success">Administrador</button></a>
+            <a href="admin.php"><button type="button" class="btn btn-success">Administrador</button></a>
             <select name="idioma" id="idioma">
                 <option value="español">Español</option>
                 <option value="ingles">Ingles</option>
@@ -32,16 +32,22 @@
     </header> 
     <main class="posicion-sesion d-flex justify-content-center"> 
     <div class="wrapper">
-        <form action="">
+        <form name="sesion" method="POST" action="../php/iniciarsesion.php">
             <h1>Iniciar sesion</h1>
             <div class="input-box">
-                <input type="text" placeholder="Nº de documento" required> <i class="fa-solid fa-user"></i>
+                <input type="text" name="usuario" autocomplete="off" placeholder="Usuario" required> <i class="fa-solid fa-user"></i>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Contraseña" required> <i class="fa-solid fa-lock"></i>
+                <input type="password" name="contraseña" autocomplete="off" placeholder="Contraseña" required> <i class="fa-solid fa-lock"></i>
             </div>
-            <a class="btn btn-success"href="usuario-admin.html">Ingresar</a>
+            <?php
+                if (isset($_GET['error'])) {
+                    echo '<p style="color: white;">' . htmlspecialchars($_GET['error']) . '</p>';
+                }
+                ?>
+            <input type="submit" name="enviar" class="btn btn-success" value="Ingresar">
         </form>
+
     </div>
     </main> 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

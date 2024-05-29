@@ -26,7 +26,7 @@
                 </ul>
             </nav>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <a href="../pages/admin.html"><button type="button" class="btn btn-success">Administrador</button></a>
+              <a href="../pages/admin.php"><button type="button" class="btn btn-success">Administrador</button></a>
                 <select name="idioma" id="idioma">
                     <option value="español">Español</option>
                     <option value="ingles">Ingles</option>
@@ -44,7 +44,7 @@
                     <a class="nav-link active" href="../pages/club.html">CLUB</a>
                 </li>
                 <li class="nav-item px-4">
-                    <a class="nav-link active" href="../pages/socio.html">SOCIO</a>
+                    <a class="nav-link active" href="../pages/socio.php">SOCIO</a>
                 </li>
                 <li class="nav-item px-4">
                     <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
@@ -80,70 +80,80 @@
                             <p class="text-white">Por favor completa los datos <strong>:</strong></p>
                         </div>
                     </div>
-                    <form class="row g-3 mt-3">
+                    <form class="row g-3 mt-3" name="nuevo socio" method="POST" autocomplete="off" action="../php/registro_ing_socio.php">  <!--aqui abre el form-->
                         <div class="col-md-6">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                            <input type="text" class="form-control" name="nombresocio" pattern="[a-zA-Z\s]+" id="nombre" placeholder="Nombre" required>
                         </div>
                         <div class="col-md-6">
                             <label for="apellido" class="form-label">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" placeholder="Apellido">
+                            <input type="text" class="form-control" name="apellidosocio" pattern="[a-zA-Z\s]+" id="apellido" placeholder="Apellido" required>
+                        </div>  
+                        <div class="row">
+                            <div class="col-md-4 mt-3">
+                                <label for="tipo-de-documento" class="form-label">Tipo de documento</label>
+                                <select  name="tipo_documento" class="form-select" id="tipo-de-documento" aria-label="Default select example">
+                                    <?php
+                                        require("../php/conexion.php");
+                                        $sql="SELECT ID, Descripcion from tipo_documento" ;
+                                        $resultado = $conexion->query($sql);
+                                        while ($valores = mysqli_fetch_array($resultado)) {
+                                            echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <label for="numero" class="form-label">Número</label>
+                                <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" required>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <label for="sexo" class="form-label">Sexo</label>
+                                <select  name="genero" class="form-select" id="sexo" aria-label="Default select example">
+                                     <?php
+                                        require("../php/conexion.php");
+                                        $sql="SELECT ID, Descripcion from genero" ;
+                                        $resultado = $conexion->query($sql);
+                                        while ($valores = mysqli_fetch_array($resultado)) {
+                                            echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
                         </div>
-                    </form>
-        
-                    <div class="row">
-                        <div class="col-md-4 mt-3">
-                            <label for="tipo-de-documento" class="form-label">Tipo de documento</label>
-                            <select class="form-select" id="tipo-de-documento" aria-label="Default select example">
-                                <option selected>DNI</option>
-                                <option value="1">Pasaporte</option>
-                                <option value="2">CUIL</option>
-                                <option value="3">Carnet</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mt-3">
-                            <label for="numero" class="form-label">Número</label>
-                            <input type="text" class="form-control" id="numero" placeholder="Nº">
-                        </div>
-                        <div class="col-md-4 mt-3">
-                            <label for="sexo" class="form-label">Sexo</label>
-                            <select class="form-select" id="sexo" aria-label="Default select example">
-                                <option selected>Masculino</option>
-                                <option value="1">Femenino</option>
-                            </select>
-                        </div>
-                    </div>
-        
-                    <form class="row g-3 mt-3">
                         <div class="col-md-6">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <input type="email" name="correo" class="form-control" id="email" placeholder="Email" required>
                         </div>
                         <div class="col-md-6">
                             <label for="fecha-de-nacimiento" class="form-label">Fecha de nacimiento</label>
-                            <input type="date" class="form-control" id="fecha-de-nacimiento">
+                            <input type="date" name="fecha_nac" class="form-control" id="fecha-de-nacimiento" required>
                         </div>
-                    </form>
-        
-                    <form class="row g-3 mt-3">
                         <div class="col-md-6">
                             <label for="telefono" class="form-label">Teléfono</label>
-                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono">
+                            <input type="text" name="telefono" pattern="[0-9]+" class="form-control" id="telefono" placeholder="Teléfono" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="direccion" class="form-label">Dirección</label>
-                            <input type="text" class="form-control" id="direccion"  placeholder="Dirección">
+                            <label for="direccion" class="form-label">Localidad</label>
+                            <input type="text" name="localidad" pattern="[a-zA-Z\s]+" class="form-control" id="direccion"  placeholder="Localidad" required>
                         </div>
-                    </form>
-        
-                    <div class="row mt-4 justify-content-center">
-                        <div class="col-auto">
-                            <button type="button" class="btn btn-success">Aceptar</button>
+                        <div class="col-md-6">
+                            <label for="direccion" class="form-label">Calle</label>
+                            <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccion"  placeholder="Nombre de calle o Av" required>
                         </div>
-                        <div class="col-auto">
-                            <button type="button" class="btn btn-danger">Cancelar</button>
+                        <div class="col-md-6">
+                            <label for="direccion" class="form-label">Altura</label>
+                            <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccion"  placeholder="Altura" required>
                         </div>
-                    </div>
+                        <div class="row mt-4 justify-content-center">
+                            <div class="col-auto">
+                                <input type="submit" name="registrar" class="btn btn-success" value="Aceptar">
+                            </div>
+                            <div class="col-auto">
+                                <input type="reset" name="cancelar_regist" class="btn btn-danger" value="Cancelar">
+                            </div>
+                        </div>
+                    </form> 
                 </div>
             </div>
         </div>

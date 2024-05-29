@@ -1,3 +1,7 @@
+<?php
+include("../php/conexion.php");
+include("../php/validarsesion.php");
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,7 +24,7 @@
         </div>
         <div class= " d-md-flex justify-content-md-end">
             <i class="fa-solid fa-user icono"></i>   
-            <button type="button" class="btn btn-success">Cerrar Sesion</button>
+            <a class="btn btn-success" href="../php/cerrarsesion.php">Cerrar sesion</a>
         </div>
     </div>
     </header> 
