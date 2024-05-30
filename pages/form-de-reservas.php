@@ -87,8 +87,9 @@
                             <label class="form-check-label" for="flexRadioDefault2">NO</label>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" name="nrsocio" class="form-control input" id="nrsocio" placeholder="Nº" disabled>
+                            <input type="text" name="nrsocio" class="form-control input" id="nrsocio" placeholder="Nº">
                         </div>
+                        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                         <div class="col-md-6">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" name="nombre" pattern="[a-zA-Z\s]+" id="nombre" placeholder="Nombre" required>
@@ -135,8 +136,9 @@
                             <label for="fecha-de-nacimiento" class="form-label">Fecha de nacimiento</label>
                             <input type="date" name="fecha_nac" class="form-control" id="fecha-de-nacimiento" required>
                         </div>
+                        <!-- selector para diferentes deportes -->
                         <div class="col-md-4 mt-3" id="selectFutbol">
-                        <label for="numero-cancha" class="form-label">Numero de cancha</label>
+                            <label for="numero-cancha" class="form-label">Numero de cancha</label>
                             <select name="nrdecancha" class="form-select" aria-label="Default select example">
                                 <option value="1" selected>1</option>
                                 <option value="2">2</option>
@@ -149,7 +151,6 @@
                                 <option value="1" selected>1</option>
                             </select>
                         </div>
-
                         <div class="col-md-4 mt-3">
                         <label for="sexo" class="form-label">Horario inicio</label>
                             <select name="horario_inic" class="form-select" id="sexo" aria-label="Default select example">
@@ -202,6 +203,14 @@
                                 <option value="23:00">23:00</option>
                                 <option value="00:00">00:00</option>
                                 
+                                <?php
+                                /*  require("../php/conexion.php");
+                                    $sql="SELECT ID, Descripcion from genero" ;
+                                    $resultado = $conexion->query($sql);
+                                    while ($valores = mysqli_fetch_array($resultado)) {
+                                        echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
+                                    }   */
+                                ?>
                             </select>
                         </div>
                         <div class="col-md-6 mt-3">
@@ -218,11 +227,11 @@
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Calle</label>
-                            <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccion" placeholder="Nombre de calle o Av" required>
+                            <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccionca" placeholder="Nombre de calle o Av" required>
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Altura</label>
-                            <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccion" placeholder="Altura" required>
+                            <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccionalt" placeholder="Altura" required>
                         </div>
                         <div class="row mt-4 justify-content-center">
                             <div class="col-auto">
@@ -236,8 +245,118 @@
                 </div>
             </div>
     </main>
+        <!--aqui va el script de buscar datos del socio-->
+    <script>
+            $(document).ready(function(){
+                $('#nrsocio').on('input', function(){
+                    var nrsocio = $(this).val();
+                    if(nrsocio.length > 0){
+                        $.ajax({
+                            url: '../php/buscar_datos.php',
+                            method: 'GET',
+                            data: {nrsocio: nrsocio},
+                            dataType: 'json',
+                            success: function(data){
+                                if (data && Object.keys(data).length > 0) {
+                                    $('#nombre').val(data.Nombre);
+                                    $('#apellido').val(data.Apellido);
+                                    $('#tipo-de-documento').val(data.id_tipo_de_documento);
+                                    $('#numero').val(data.Numero_Documento);
+                                    $('#sexo').val(data.id_genero);
+                                    $('#email').val(data.Email);
+                                    $('#fecha-de-nacimiento').val(data.fecha_nac);
+                                    $('#telefono').val(data.telefono);
+                                    $('#direccion').val(data.Localidad);
+                                    $('#direccionca').val(data.Calle);
+                                    $('#direccionalt').val(data.Altura);
+                                    
+                                } 
+                                else {
+                                    $('#nombre').val('');
+                                    $('#apellido').val('');
+                                    $('#tipo-de-documento').val('');
+                                    $('#numero').val('');
+                                    $('#sexo').val('');
+                                    $('#email').val('');
+                                    $('#fecha-de-nacimiento').val('');
+                                    $('#telefono').val('');
+                                    $('#direccion').val('');
+                                    $('#direccionca').val('');
+                                    $('#direccionalt').val('');
+                                }
+                            }
+                        });
+
+                    } else {
+                            $('#nombre').val('');
+                            $('#apellido').val('');
+                            $('#tipo-de-documento').val('');
+                            $('#numero').val('');
+                            $('#sexo').val('');
+                            $('#email').val('');
+                            $('#fecha-de-nacimiento').val('');
+                            $('#telefono').val('');
+                            $('#direccion').val('');
+                            $('#direccionca').val('');
+                            $('#direccionalt').val('');
+                        }
+                });
+            });
+        </script>
    
     <script>
+        // Función para obtener el valor del parámetro 'deporte' de la URL
+        function getDeporteFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('deporte');
+        }
+
+            // Función para actualizar el título de la página con el nombre del deporte
+        function actualizarTituloDeporte() {
+            const deporte = getDeporteFromURL();
+            if (deporte) {
+                const header = document.getElementById('header');
+                header.textContent = deporte.toUpperCase();
+
+                // Mapear el nombre del deporte al ID correspondiente
+                const deporteMap = {
+                    "futbol": 1,
+                    "voley": 2,
+                    "hockey": 3,
+                    "basquet": 4,
+                };
+
+                // Asignar el valor del ID del deporte al campo oculto
+                const deporteInput = document.getElementById('deporte');
+                deporteInput.value = deporteMap[deporte.toLowerCase()];
+            }
+        }
+
+        // Función para habilitar o deshabilitar el input de número de socio
+        function toggleNrsocioInput() {
+            const radioSi = document.getElementById('flexRadioDefault1');
+            const radioNo = document.getElementById('flexRadioDefault2');
+            const nrsocioInput = document.getElementById('nrsocio');
+
+            if (radioSi.checked) {
+                nrsocioInput.disabled = false;
+            } 
+            else if (radioNo.checked) {
+                nrsocioInput.disabled = true;
+                nrsocioInput.value = '';
+            }
+        }
+
+        // Agregar event listeners a los botones de radio
+        document.getElementById('flexRadioDefault1').addEventListener('change', toggleNrsocioInput);
+        document.getElementById('flexRadioDefault2').addEventListener('change', toggleNrsocioInput);
+
+        // Llamar a la función para actualizar el título al cargar la página
+        window.onload = function() {
+            actualizarTituloDeporte();
+            toggleNrsocioInput();
+        };
+
         // Obtener parámetros de la URL
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
@@ -270,7 +389,9 @@
             nrSocioInput.disabled = radioSocioNo.checked;
         });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzG6LR1Knn8eJ2z9ndiN8QwI1xzC1H6wXH7xR6A9dakt" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-qljovkHYa/Q5PoF6NHTQQ1/2e6bJVjy3Eds5DZjw+grc5mrbLU5S8e1moP6KTKP6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
