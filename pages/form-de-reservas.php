@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -136,24 +135,21 @@
                             <label for="fecha-de-nacimiento" class="form-label">Fecha de nacimiento</label>
                             <input type="date" name="fecha_nac" class="form-control" id="fecha-de-nacimiento" required>
                         </div>
-                        <div class="col-md-4 mt-3">
-                        <label for="tipo-de-documento" class="form-label">Numero de cancha</label>
-                            <select name="nrdecancha" class="form-select" id="tipo-de-documento" aria-label="Default select example">
+                        <div class="col-md-4 mt-3" id="selectFutbol">
+                        <label for="numero-cancha" class="form-label">Numero de cancha</label>
+                            <select name="nrdecancha" class="form-select" aria-label="Default select example">
                                 <option value="1" selected>1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
-                                <option value="4">4</option>
-                                
-                                <?php
-                                /*   require("../php/conexion.php");
-                                    $sql="SELECT ID, Descripcion from tipo_documento" ;
-                                    $resultado = $conexion->query($sql);
-                                    while ($valores = mysqli_fetch_array($resultado)) {
-                                        echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
-                                    }   */
-                                ?>
                             </select>
                         </div>
+                        <div class="col-md-4 mt-3 d-none" id="selectSingle">
+                            <label for="numero-cancha" class="form-label">Numero de cancha</label>
+                            <select name="nrdecancha" class="form-select" aria-label="Default select example">
+                                <option value="1" selected>1</option>
+                            </select>
+                        </div>
+
                         <div class="col-md-4 mt-3">
                         <label for="sexo" class="form-label">Horario inicio</label>
                             <select name="horario_inic" class="form-select" id="sexo" aria-label="Default select example">
@@ -206,14 +202,6 @@
                                 <option value="23:00">23:00</option>
                                 <option value="00:00">00:00</option>
                                 
-                                <?php
-                                /*  require("../php/conexion.php");
-                                    $sql="SELECT ID, Descripcion from genero" ;
-                                    $resultado = $conexion->query($sql);
-                                    while ($valores = mysqli_fetch_array($resultado)) {
-                                        echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
-                                    }   */
-                                ?>
                             </select>
                         </div>
                         <div class="col-md-6 mt-3">
@@ -250,61 +238,39 @@
     </main>
    
     <script>
-        // Función para obtener el valor del parámetro 'deporte' de la URL
-        function getDeporteFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('deporte');
+        // Obtener parámetros de la URL
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const deporte = urlParams.get('deporte');
+        document.getElementById('header').innerText = deporte;
+        document.getElementById('deporte').value = deporte;
+
+        // Mostrar/ocultar selectores basados en el deporte
+        const selectFutbol = document.getElementById('selectFutbol');
+        const selectSingle = document.getElementById('selectSingle');
+
+        if (deporte.toLowerCase() === 'futbol') {
+            selectFutbol.classList.remove('d-none');
+            selectSingle.classList.add('d-none');
+        } else {
+            selectFutbol.classList.add('d-none');
+            selectSingle.classList.remove('d-none');
         }
 
-            // Función para actualizar el título de la página con el nombre del deporte
-        function actualizarTituloDeporte() {
-            const deporte = getDeporteFromURL();
-            if (deporte) {
-                const header = document.getElementById('header');
-                header.textContent = deporte.toUpperCase();
+        // Habilitar/Deshabilitar campo de número de socio
+        const radioSocioSi = document.getElementById('flexRadioDefault1');
+        const radioSocioNo = document.getElementById('flexRadioDefault2');
+        const nrSocioInput = document.getElementById('nrsocio');
 
-                // Mapear el nombre del deporte al ID correspondiente
-                const deporteMap = {
-                    "futbol": 1,
-                    "voley": 2,
-                    "hockey": 3,
-                    "basquet": 4,
-                };
+        radioSocioSi.addEventListener('change', () => {
+            nrSocioInput.disabled = !radioSocioSi.checked;
+        });
 
-                // Asignar el valor del ID del deporte al campo oculto
-                const deporteInput = document.getElementById('deporte');
-                deporteInput.value = deporteMap[deporte.toLowerCase()];
-            }
-        }
-
-        // Función para habilitar o deshabilitar el input de número de socio
-        function toggleNrsocioInput() {
-            const radioSi = document.getElementById('flexRadioDefault1');
-            const radioNo = document.getElementById('flexRadioDefault2');
-            const nrsocioInput = document.getElementById('nrsocio');
-
-            if (radioSi.checked) {
-                nrsocioInput.disabled = false;
-            } 
-            else if (radioNo.checked) {
-                nrsocioInput.disabled = true;
-                nrsocioInput.value = '';
-            }
-        }
-
-        // Agregar event listeners a los botones de radio
-        document.getElementById('flexRadioDefault1').addEventListener('change', toggleNrsocioInput);
-        document.getElementById('flexRadioDefault2').addEventListener('change', toggleNrsocioInput);
-
-        // Llamar a la función para actualizar el título al cargar la página
-        window.onload = function() {
-            actualizarTituloDeporte();
-            toggleNrsocioInput();
-        };
+        radioSocioNo.addEventListener('change', () => {
+            nrSocioInput.disabled = radioSocioNo.checked;
+        });
     </script>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzG6LR1Knn8eJ2z9ndiN8QwI1xzC1H6wXH7xR6A9dakt" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-qljovkHYa/Q5PoF6NHTQQ1/2e6bJVjy3Eds5DZjw+grc5mrbLU5S8e1moP6KTKP6" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -89,7 +89,6 @@
                             <label for="apellido" class="form-label">Apellido</label>
                             <input type="text" class="form-control" name="apellidosocio" pattern="[a-zA-Z\s]+" id="apellido" placeholder="Apellido" required>
                         </div>  
-                        <div class="row">
                             <div class="col-md-4 mt-3">
                                 <label for="tipo-de-documento" class="form-label">Tipo de documento</label>
                                 <select  name="tipo_documento" class="form-select" id="tipo-de-documento" aria-label="Default select example">
@@ -120,7 +119,6 @@
                                     ?>
                                 </select>
                             </div>
-                        </div>
                         <div class="col-md-6">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" name="correo" class="form-control" id="email" placeholder="Email" required>
