@@ -90,7 +90,7 @@ include("../php/validarsesion.php");
         
     </div>
     <div class="container">
-        <h3>DEPORTE</h3>
+        <h3 class="text-white">DEPORTE</h3>
         <form class="row g-3 mb-3">
             <div class="col-2">
                 <label for="id" class="form-label">ID-Deporte</label>
@@ -104,7 +104,7 @@ include("../php/validarsesion.php");
         </form>
     </div>
     <div class="container">
-        <h3 class="mt-4">DEPORTE-CANCHA-HORA</h3>
+        <h3 class="mt-4 text-white">DEPORTE-CANCHA-HORA</h3>
         <form class="row g-3 mb-3">
             <div class="col-2">
                 <label for="id" class="form-label">ID</label>
@@ -118,7 +118,7 @@ include("../php/validarsesion.php");
         </form>
     </div>
     <div class="container mb-5">
-        <h3 class="mt-4">RESERVA</h3>
+        <h3 class="mt-4 text-white">RESERVA</h3>
         <form class="row g-3 mb-3">
             <div class="col-1">
                 <label for="id" class="form-label">ID</label>

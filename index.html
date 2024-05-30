@@ -42,16 +42,17 @@
         
                 <ul class="navbar-nav m-auto mb-2 mb-lg-0">
                 <li class="nav-item px-4">
-                  <a class="nav-link active" href="./pages/club.html">CLUB</a>
+                  <a class="nav-link active" href="./index.html">INICIO</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="./pages/socio.php">SOCIO</a>
+                  <a class="nav-link active" href="./pages/club.html">CLUB</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="./pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
                 </li>
                 <li class="nav-item px-4">
-                  <a class="nav-link active" href="./pages/contacto.html">CONTACTO</a>
+                  <a class="nav-link active" href="#contacto">CONTACTO</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active dropdown toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">DEPORTES</a>
@@ -69,32 +70,118 @@
             </div>
         </nav>
     </header>
-   <!--  Fin de barra de inicio -->
+  <!--  Fin de barra de inicio -->
    
     <main>
-        <div id="carouselExample" class="carousel slide bg-success">
-            <div class="carousel-inner">
-              <div class="carousel-item active portada">
-                <img class="img-fluid" src="img/noticia-1.jpeg" class="d-block w-100" alt="imagen-1">
-                <img class="img-fluid" src="img/noticia-2.jpeg" class="d-block w-100" alt="imagen-2">
-              </div>
-              <div class="carousel-item">
-                <img class="img-fluid mx-auto d-block" src="img/noticia-2.jpeg" class="d-block w-100" alt="imagen-2">
-              </div>
-              <div class="carousel-item">
-                <img class="img-fluid mx-auto d-block" src="img/noticia-3.jpg" class="d-block w-100" alt="imagen-3">
+
+      <article id="banner">
+        <div class="banner-card">
+            <a class="btn btn-success mover-boton" href="./pages/socio.html">QUIERO SER SOCIO</a>
+        </div>
+    </article>
+
+    <section>
+      <div class="container">
+      <h1 class="text-center p-4">Noticias</h1>
+      <div class="row row-cols-4">
+    
+          <div class="col-lg-3 pt-0">
+            <a href="https://www.instagram.com/p/C7ekUo9RX1B/?img_index=1" target="_blank">
+              <img src="./img/info-1.jpg" class="card-img-top" alt="foto1">
+            </a>
+          </div>
+
+          <div class="col-lg-3 pt-0">
+            <a href="/pages/reserva-de-canchas.html" target="_blank">
+            <img src="./img/noticia-1.jpeg" class="card-img-top" alt="foto2">
+            </a> 
+          </div>
+    
+          <div class="col-lg-3 pt-0">
+              <a href="https://www.instagram.com/p/C2swEiLRK9i/?img_index=1" target="_blank">
+              <img src="./img/noticia-2.jpeg" class="card-img-top" alt="foto3">
+              </a>
+          </div>
+    
+          <div class="col-lg-3 pt-0">
+            <a href="https://www.instagram.com/p/C6umPnIr7WH/" target="_blank">
+            <img src="./img/noticia-3.jpg" class="card-img-top" alt="foto4">
+            </a>
+          </div>
+
+        </div>
+    
+        </div>
+      </div>
+    </section>
+
+    </main>
+    
+    
+    
+    <section class="bg-success mt-3" id="contacto">
+      <div class="container posicion-conteiner">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form class="row g-3">
+                    <div class="col-md-3 mt-5 offset-md-2 ">
+                        <p class="text-white parrafo"><strong>Contacto</strong></p>
+                    </div>
+                    <div class="col-md-3 mt-5 offset-md-4">
+                        <p class="text-white parrafo"><strong>Direccion</strong></p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                      <label for="nombre" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                      <label for="nombre" class="form-label mt-2">Correo Electronico</label>
+                      <input type="text" class="form-control" id="nombre" placeholder="Correo">
+                      <label for="nombre" class="form-label mt-2">Dejanos tu consulta</label>
+                      <textarea class="form-control"  cols="45" rows="5"></textarea>
+                      <div class="col-auto mt-3 mb-3">
+                        <a class="btn btn-light" href="metedo-de-pago.html">Enviar</a>
+                      </div>
+                    </div>
+                    <div class="col-md-6 px-3">
+                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4699.03323505802!2d-59.79947380969555!3d-34.179924227885095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bbd83298154d17%3A0x1c9857d60d815d81!2sCLUB%20SOCIAL%20Y%20DEPORTIVO%20SAN%20CARLOS!5e0!3m2!1ses-419!2sar!4v1716605343188!5m2!1ses-419!2sar" width="500" height="320" style="border:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    
+                </form>
               </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
+        </div>
+
+        <div class="card-group">
+          <div class="card anch-card alt-card">
+            <div class="card-body">
+              <h5 class="card-title">Horarios de atencion</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary mt-3">Lunes a Viernes 8:00 a 12:00 y de 16:00 a 20:00</h6>
+              <p class="card-subtitle mb-2 text-body-secondary">Sabados 6:30 a 11:30 y Domingos cerrado</p>
+            </div>
           </div>
-    </main>
+          <div class="card anch-card ">
+            <div class="card-body">
+              <h5 class="card-title">Comunicate con nosotros</h5>
+              <h6 class="card-subtitle text-body-secondary mt-3">Tel: 2478-410231</h6>
+            </div>
+          </div>
+          <div class="card anch-card ">
+            <div class="card-body">
+              <h5 class="card-title">Mail</h5>
+              <h6 class="card-subtitle  text-body-secondary mt-3">clubsancarlos1941@yahoo.com.ar</h6>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+ 
+    <footer class=" mt-4 text-center">
+        <p>
+          <img id="tamaño_copyright" src="/img/simbolo-de-copyright.png" alt="copyright">
+          Copyright; 2024 - Club San Carlos.
+        </p>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

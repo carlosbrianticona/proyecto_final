@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLUB SOCIAL Y DEPORTIVO SAN CARLOS</title>
+    <script src="https://kit.fontawesome.com/bfbcf1faa2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <div class="conteiner">
+            <div class="inicio px-4">
+                <a href="../index.html">
+                    <img src="../img/1.png" alt="emblema" class="img">
+                </a>
+                <h4 class="texto">CLUB SOCIAL Y DEPORTIVO SAN CARLOS</h4>
+            </div>
+            <nav>
+                <ul class="nav-link">
+                    <li><a href="#">TIENDA</a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                </ul>
+            </nav>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="button" class="btn btn-success">Administrador</button>
+                <select name="idioma" id="idioma">
+                    <option value="español">Español</option>
+                    <option value="ingles">Ingles</option>
+                    <option value="otros idiomas">Otros idiomas...</option>
+              </select> 
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg bg-success navbar-dark">
+
+            <div class="container">
+            <div class="collapse navbar-collapse">
+        
+                <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                <li class="nav-item px-4">
+                    <a class="nav-link active" href="../index.html">INICIO</a>
+                </li>
+                <li class="nav-item px-4">
+                    <a class="nav-link active" href="./pages/club.html">CLUB</a>
+                </li>
+                <li class="nav-item px-4">
+                    <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
+                </li>
+                <li class="nav-item px-4">
+                    <a class="nav-link active" href="./pages/contacto.html">CONTACTO</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">DEPORTES</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item">Futbol</a></li>
+                        <li><a href="#" class="dropdown-item">Voley</a></li>
+                        <li><a href="#" class="dropdown-item">Basquet</a></li>
+                        <li><a href="#" class="dropdown-item">Natacion</a></li>
+                        <li><a href="#" class="dropdown-item">Hockey</a></li>
+                    </ul>
+                </li>
+                </ul>
+            
+            </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h1 id="header"class="text-center mt-4">VOLEY</h1>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form class="row g-3 mt-5">
+                        <div class="col-md-2">
+                            <p class="text-white"><strong>¿Sos socio?</strong></p>
+                        </div>
+                        <div class="form-check col-md-1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">SI</label>
+                        </div>
+                        <div class="form-check col-md-1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">NO</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control input" id="nombre" placeholder="Nº">
+                        </div>
+
+                        
+                    </form>
+                    <form class="row g-3 mt-3">
+                        <div class="col-md-3">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" placeholder="Apellido">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="numero-de-cancha" class="form-label">Nº de cancha</label>
+                            <select class="form-select" id="numero-de-cancha" aria-label="Default select example">
+                                <option selected>1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="horario" class="form-label">Horario</label>
+                            <select class="form-select" id="horario" aria-label="Default select example">
+                                <option selected>13:00 a 14:00</option>
+                                <option value="1">14:00 a 15:00</option>
+                                <option value="2">15:00 a 16:00</option>
+                                <option value="3">16:00 a 17:00</option>
+                            </select>
+                        </div>
+
+                    </form>
+        
+                    <div class="row">
+                        <div class="col-md-4 mt-3">
+                            <label for="tipo-de-documento" class="form-label">Tipo de documento</label>
+                            <select class="form-select" id="tipo-de-documento" aria-label="Default select example">
+                                <option selected>DNI</option>
+                                <option value="1">Pasaporte</option>
+                                <option value="2">CUIL</option>
+                                <option value="3">Carnet</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <label for="numero" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="numero" placeholder="Nº">
+                        </div>
+                        <div class="col-md-4 mt-3">
+                            <label for="sexo" class="form-label">Sexo</label>
+                            <select class="form-select" id="sexo" aria-label="Default select example">
+                                <option selected>Masculino</option>
+                                <option value="1">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+        
+                    <form class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="fecha-de-nacimiento" class="form-label">Fecha de nacimiento</label>
+                            <input type="date" class="form-control" id="fecha-de-nacimiento">
+                        </div>
+                    </form>
+        
+                    <form class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="direccion" class="form-label">Dirección</label>
+                            <input type="text" class="form-control" id="direccion"  placeholder="Dirección">
+                        </div>
+                    </form>
+        
+                    <div class="row mt-4 justify-content-center">
+                        <div class="col-auto">
+                            <a class="btn btn-success" href="metedo-de-pago.html">Siguiente</a>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-danger">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+</body>
+</html>
