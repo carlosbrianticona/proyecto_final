@@ -48,7 +48,7 @@
                   <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
                 </li>
                 <li class="nav-item px-4">
-                  <a class="nav-link active" href="./pages/contacto.html">CONTACTO</a>
+                  <a class="nav-link active" href="../index.html#contacto">CONTACTO</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active dropdown toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">DEPORTES</a>
@@ -87,8 +87,11 @@
                             <label class="form-check-label" for="flexRadioDefault2">NO</label>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" name="nrsocio" class="form-control input" id="nrsocio" placeholder="Nº">
+                            <input type="text" name="nrsocio" class="form-control input" pattern="[0-9]+" id="nrsocio" placeholder="Nº">
                         </div>
+                        
+                        <div id="error-message" class="text" style="display:none; color:white;"></div>
+
                         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                         <div class="col-md-6">
                             <label for="nombre" class="form-label">Nombre</label>
@@ -153,7 +156,7 @@
                         </div>
                         <div class="col-md-4 mt-3">
                         <label for="sexo" class="form-label">Horario inicio</label>
-                            <select name="horario_inic" class="form-select" id="sexo" aria-label="Default select example">
+                            <select name="horario_inic" class="form-select" id="horario-inic" aria-label="Default select example">
                                 <option value="7:00" selected>7:00</option>
                                 <option value="8:00">8:00</option>
                                 <option value="9:00">9:00</option>
@@ -184,7 +187,7 @@
                         </div>
                         <div class="col-md-4 mt-3">
                         <label for="sexo" class="form-label">Horario final</label>
-                            <select name="horario_fin" class="form-select" id="sexo" aria-label="Default select example">
+                            <select name="horario_fin" class="form-select" id="horario-fin" aria-label="Default select example">
                                 <option value="8:00" selected>8:00</option>
                                 <option value="9:00">9:00</option>
                                 <option value="10:00">10:00</option>
@@ -215,7 +218,7 @@
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="fecha-de-nacimiento" class="form-label">Dia de reserva</label>
-                            <input type="date" name="fecha_rese" class="form-control" id="fecha-de-nacimiento" required>
+                            <input type="date" name="fecha_rese" class="form-control" id="fecha-rese" required>
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="telefono" class="form-label">Teléfono</label>
@@ -246,48 +249,33 @@
             </div>
     </main>
         <!--aqui va el script de buscar datos del socio-->
-    <script>
-            $(document).ready(function(){
-                $('#nrsocio').on('input', function(){
-                    var nrsocio = $(this).val();
-                    if(nrsocio.length > 0){
-                        $.ajax({
-                            url: '../php/buscar_datos.php',
-                            method: 'GET',
-                            data: {nrsocio: nrsocio},
-                            dataType: 'json',
-                            success: function(data){
-                                if (data && Object.keys(data).length > 0) {
-                                    $('#nombre').val(data.Nombre);
-                                    $('#apellido').val(data.Apellido);
-                                    $('#tipo-de-documento').val(data.id_tipo_de_documento);
-                                    $('#numero').val(data.Numero_Documento);
-                                    $('#sexo').val(data.id_genero);
-                                    $('#email').val(data.Email);
-                                    $('#fecha-de-nacimiento').val(data.fecha_nac);
-                                    $('#telefono').val(data.telefono);
-                                    $('#direccion').val(data.Localidad);
-                                    $('#direccionca').val(data.Calle);
-                                    $('#direccionalt').val(data.Altura);
-                                    
-                                } 
-                                else {
-                                    $('#nombre').val('');
-                                    $('#apellido').val('');
-                                    $('#tipo-de-documento').val('');
-                                    $('#numero').val('');
-                                    $('#sexo').val('');
-                                    $('#email').val('');
-                                    $('#fecha-de-nacimiento').val('');
-                                    $('#telefono').val('');
-                                    $('#direccion').val('');
-                                    $('#direccionca').val('');
-                                    $('#direccionalt').val('');
-                                }
-                            }
-                        });
+        <script>
+    $(document).ready(function(){
+        $('#nrsocio').on('input', function(){
+            var nrsocio = $(this).val();
+            if(nrsocio.length > 0){
+                $.ajax({
+                    url: '../php/buscar_datos.php',
+                    method: 'GET',
+                    data: {nrsocio: nrsocio},
+                    dataType: 'json',
+                    success: function(data){
+                        if (data && Object.keys(data).length > 0 && !data.error) {
+                            $('#nombre').val(data.Nombre);
+                            $('#apellido').val(data.Apellido);
+                            $('#tipo-de-documento').val(data.id_tipo_de_documento);
+                            $('#numero').val(data.Numero_Documento);
+                            $('#sexo').val(data.id_genero);
+                            $('#email').val(data.Email);
+                            $('#fecha-de-nacimiento').val(data.fecha_nac);
+                            $('#telefono').val(data.telefono);
+                            $('#direccion').val(data.Localidad);
+                            $('#direccionca').val(data.Calle);
+                            $('#direccionalt').val(data.Altura);
 
-                    } else {
+                            // Ocultar mensaje de error si la respuesta es exitosa
+                            $('#error-message').hide();
+                        } else {
                             $('#nombre').val('');
                             $('#apellido').val('');
                             $('#tipo-de-documento').val('');
@@ -299,10 +287,36 @@
                             $('#direccion').val('');
                             $('#direccionca').val('');
                             $('#direccionalt').val('');
+
+                            // Mostrar mensaje de error
+                            $('#error-message').text(data.error ? data.error : "Número de socio no encontrado").show();
                         }
+                    },
+                    error: function() {
+                        // Manejar errores de la solicitud AJAX
+                        $('#error-message').text("Error en la solicitud. Por favor, intente nuevamente.").show();
+                    }
                 });
-            });
-        </script>
+            } else {
+                $('#nombre').val('');
+                $('#apellido').val('');
+                $('#tipo-de-documento').val('');
+                $('#numero').val('');
+                $('#sexo').val('');
+                $('#email').val('');
+                $('#fecha-de-nacimiento').val('');
+                $('#telefono').val('');
+                $('#direccion').val('');
+                $('#direccionca').val('');
+                $('#direccionalt').val('');
+
+                // Ocultar mensaje de error si no hay entrada
+                $('#error-message').hide();
+            }
+        });
+    });
+</script>
+
    
     <script>
         // Función para obtener el valor del parámetro 'deporte' de la URL
