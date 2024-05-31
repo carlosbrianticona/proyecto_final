@@ -194,3 +194,14 @@ header{
     top: 420px;
     left: 320px;
 }
+/* 
+club */
+
+.imagen{
+    height: 100%;
+}
+
+.imagen-1{
+    height: 570px !important;
+    width: 100%;
+}
