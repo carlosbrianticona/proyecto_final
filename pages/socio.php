@@ -25,14 +25,14 @@
                     <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                 </ul>
             </nav>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <a href="../pages/admin.php"><button type="button" class="btn btn-success">Administrador</button></a>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="../pages/admin.php"><button type="button" class="btn btn-success">Administrador</button></a>
                 <select name="idioma" id="idioma">
                     <option value="español">Español</option>
                     <option value="ingles">Ingles</option>
                     <option value="otros idiomas">Otros idiomas...</option>
                 </select> 
-          </div>
+        </div>
         </div>
         <nav class="navbar navbar-expand-lg bg-success navbar-dark">
 
@@ -111,7 +111,7 @@
                             <div class="col-md-4 mt-3">
                                 <label for="sexo" class="form-label">Sexo</label>
                                 <select  name="genero" class="form-select" id="sexo" aria-label="Default select example">
-                                     <?php
+                                    <?php
                                         require("../php/conexion.php");
                                         $sql="SELECT ID, Descripcion from genero" ;
                                         $resultado = $conexion->query($sql);
