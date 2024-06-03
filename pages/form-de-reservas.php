@@ -139,8 +139,7 @@
                             <label for="fecha-de-nacimiento" class="form-label">Fecha de nacimiento</label>
                             <input type="date" name="fecha_nac" class="form-control" id="fecha-de-nacimiento" required>
                         </div>
-                        <!-- selector para diferentes deportes -->
-                        <div class="col-md-4 mt-3" id="selectFutbol">
+                        <div class="col-md-6 mt-3" id="selectFutbol">
                             <label for="numero-cancha" class="form-label">Numero de cancha</label>
                             <select name="nrdecancha" class="form-select" aria-label="Default select example">
                                 <option value="1" selected>1</option>
@@ -148,82 +147,33 @@
                                 <option value="3">3</option>
                             </select>
                         </div>
-                        <div class="col-md-4 mt-3 d-none" id="selectSingle">
+                        <div class="col-md-6 mt-3 d-none" id="selectSingle">
                             <label for="numero-cancha" class="form-label">Numero de cancha</label>
                             <select name="nrdecancha" class="form-select" aria-label="Default select example">
                                 <option value="1" selected>1</option>
                             </select>
                         </div>
-                        <div class="col-md-4 mt-3">
-                        <label for="sexo" class="form-label">Horario inicio</label>
-                            <select name="horario_inic" class="form-select" id="horario-inic" aria-label="Default select example">
-                                <option value="7:00" selected>7:00</option>
-                                <option value="8:00">8:00</option>
-                                <option value="9:00">9:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="12:00">12:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="18:00">18:00</option>
-                                <option value="19:00">19:00</option>
-                                <option value="20:00">20:00</option>
-                                <option value="21:00">21:00</option>
-                                <option value="22:00">22:00</option>
-                                <option value="23:00">23:00</option>
-                                
-                                <?php
-                                /*  require("../php/conexion.php");
-                                    $sql="SELECT ID, Descripcion from genero" ;
-                                    $resultado = $conexion->query($sql);
-                                    while ($valores = mysqli_fetch_array($resultado)) {
-                                        echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
-                                    }   */
-                                ?>
-                            </select>
-                        </div>
-                        <div class="col-md-4 mt-3">
-                        <label for="sexo" class="form-label">Horario final</label>
-                            <select name="horario_fin" class="form-select" id="horario-fin" aria-label="Default select example">
-                                <option value="8:00" selected>8:00</option>
-                                <option value="9:00">9:00</option>
-                                <option value="10:00">10:00</option>
-                                <option value="11:00">11:00</option>
-                                <option value="12:00">12:00</option>
-                                <option value="13:00">13:00</option>
-                                <option value="14:00">14:00</option>
-                                <option value="15:00">15:00</option>
-                                <option value="16:00">16:00</option>
-                                <option value="17:00">17:00</option>
-                                <option value="18:00">18:00</option>
-                                <option value="19:00">19:00</option>
-                                <option value="20:00">20:00</option>
-                                <option value="21:00">21:00</option>
-                                <option value="22:00">22:00</option>
-                                <option value="23:00">23:00</option>
-                                <option value="00:00">00:00</option>
-                                
-                                <?php
-                                /*  require("../php/conexion.php");
-                                    $sql="SELECT ID, Descripcion from genero" ;
-                                    $resultado = $conexion->query($sql);
-                                    while ($valores = mysqli_fetch_array($resultado)) {
-                                        echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
-                                    }   */
-                                ?>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mt-3">
-                            <label for="fecha-de-nacimiento" class="form-label">Dia de reserva</label>
-                            <input type="date" name="fecha_rese" class="form-control" id="fecha-rese" required>
-                        </div>
                         <div class="col-md-6 mt-3">
                             <label for="telefono" class="form-label">Teléfono</label>
                             <input type="text" name="telefono" pattern="[0-9]+" class="form-control" id="telefono" placeholder="Teléfono" required>
                         </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="fecha_rese" class="form-label">Dia de reserva</label>
+                            <input type="date" name="fecha_rese" class="form-control" id="fecha_rese" required>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="sexo" class="form-label">Horario de reserva</label>
+                            <select multiple name="horario_inic" class="form-select single-height" id="horario_inic" aria-label="Default select example">
+                            <!-- Los horarios disponibles se cargarán aquí -->
+                            </select>
+                        </div>
+                        <style>
+                            .single-height {
+                            height: calc(3rem + 2px); /* Ajusta esta altura según el select single */
+                            }
+                        </style>
+                        <!-- selector para diferentes deportes -->
+                        
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Localidad</label>
                             <input type="text" name="localidad" pattern="[a-zA-Z\s]+" class="form-control" id="direccion" placeholder="Localidad" required>
@@ -248,8 +198,73 @@
                 </div>
             </div>
     </main>
-        <!--aqui va el script de buscar datos del socio-->
-        <script>
+
+<script>
+     // Captura el valor del número de cancha seleccionado y lo almacena en una variable, ya que no se ha enviado el formulario hacemos esto
+    document.getElementById('numero-cancha').addEventListener('change', function() {
+        var nrdecancha = this.value;
+    });
+</script>
+
+<!--aca recibimos la fecha y la convertimos en ID segun el dia -->
+
+
+<script>
+    document.getElementById('fecha_rese').addEventListener('change', function() {
+        var fecha = new Date(this.value);
+        var diaSemana = fecha.getDay(); 
+
+        var diaMap = {
+            0: 1, // lunes
+            1: 2, // martes
+            2: 3, // Miercoles
+            3: 4, // jueves
+            4: 5, // viernes
+            5: 6, // sabado
+            6: 7,  // domingo
+        };
+
+        var idDia = diaMap[diaSemana];
+        var fechaReserva = this.value; // Obtener la fecha de reserva seleccionada
+
+        /*var deporte = document.getElementById('deporte').value;
+        var nrdecancha = document.getElementById('numero-cancha').value;
+      
+        obtenerHorariosDisponibles(idDia, deporte, nrdecancha, fechaReserva); */
+        obtenerHorariosDisponibles(idDia, fechaReserva);
+    });
+         // aca recibimos los horarios disponibles de la consulta  y hacemos la funcion para mostrar los datos obtenidos en el php 
+
+
+    function obtenerHorariosDisponibles(idDia, fechaReserva) {
+        $.ajax({
+            url: '../php/obtener_horarios.php',
+            method: 'GET',
+            //data: { id_dia: idDia, deporte: deporte, nrdecancha: nrdecancha, fecha_rese: fechaReserva },
+            data: { id_dia: idDia, fecha_rese: fechaReserva },
+            dataType: 'json',
+            success: function(data) {
+                var horarioSelect = $('#horario_inic');
+                horarioSelect.empty(); // Vaciar el select de horarios
+
+                if (data && data.length > 0) {
+                    data.forEach(function(horario) {
+                        horarioSelect.append(new Option(horario.hora_inicio + ' - ' + horario.hora_finalizado, horario.id));
+                    });
+                } else {
+                    horarioSelect.append(new Option('No hay horarios disponibles', ''));
+                }
+            },
+        error: function() {
+            alert('Error al obtener los horarios disponibles.');
+        }
+    });
+}
+
+</script>  
+
+        <!--aqui va el script de buscar datos del socio si llega hacer socio-->
+<script>
     $(document).ready(function(){
         $('#nrsocio').on('input', function(){
             var nrsocio = $(this).val();
@@ -403,6 +418,7 @@
             nrSocioInput.disabled = radioSocioNo.checked;
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzG6LR1Knn8eJ2z9ndiN8QwI1xzC1H6wXH7xR6A9dakt" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-qljovkHYa/Q5PoF6NHTQQ1/2e6bJVjy3Eds5DZjw+grc5mrbLU5S8e1moP6KTKP6" crossorigin="anonymous"></script>
