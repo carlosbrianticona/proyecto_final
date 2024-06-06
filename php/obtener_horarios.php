@@ -4,7 +4,10 @@ require("conexion.php");
 
 
 
-
+var_dump($_GET['id_dia']); 
+var_dump($_GET['deporte']); 
+var_dump($_GET['nrdecancha']); 
+die; 
 if (isset($_GET['id_dia'])/* && isset($_GET['deporte']) && isset($_GET['nrdecancha']) */) {
    $id_dia = intval($_GET['id_dia']);
 
