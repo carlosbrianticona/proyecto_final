@@ -256,7 +256,8 @@
                 }
             },
         error: function() {
-            alert('Error al obtener los horarios disponibles.');
+            //alert('Error al obtener los horarios disponibles. dia' + id_dia + 'fechares' + fecha_rese + 'fecha reserva' +fechaReserva );
+            alert('Error al obtener los horarios disponibles. dia' +fechaReserva );
         }
     });
 }
