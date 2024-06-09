@@ -7,6 +7,8 @@
     <script src="https://kit.fontawesome.com/bfbcf1faa2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -77,6 +79,8 @@
                         <div class="col-md-2">
                             <p class="text-white"><strong>¿Sos socio?</strong></p>
                         </div>
+
+                        <!--AQUI VA EL NOMBRE DEL DEPORTE-->
                         <input type="hidden" name="deporte" id="deporte">
                         <div class="form-check col-md-1">
                             <input class="form-check-input" type="radio" name="radiosocio" id="flexRadioDefault1" value="si">
@@ -87,7 +91,7 @@
                             <label class="form-check-label" for="flexRadioDefault2">NO</label>
                         </div>
                         <div class="col-md-3">
-                            <input type="text" name="nrsocio" class="form-control input" pattern="[0-9]+" id="nrsocio" placeholder="Nº">
+                            <input type="text" name="nrsocio" class="form-control input" pattern="[0-9]+" id="nrsocio" placeholder="Nº" disabled>
                         </div>
                         
                         <div id="error-message" class="text" style="display:none; color:white;"></div>
@@ -96,10 +100,12 @@
                         <div class="col-md-6">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" name="nombre" pattern="[a-zA-Z\s]+" id="nombre" placeholder="Nombre" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-6">
                             <label for="apellido" class="form-label">Apellido</label>
                             <input type="text" class="form-control" name="apellido" pattern="[a-zA-Z\s]+" id="apellido" placeholder="Apellido" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="tipo-de-documento" class="form-label">Tipo de documento</label>
@@ -117,6 +123,7 @@
                         <div class="col-md-4 mt-3">
                             <label for="numero" class="form-label">Número</label>
                             <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="sexo" class="form-label">Sexo</label>
@@ -141,21 +148,21 @@
                         </div>
                         <div class="col-md-6 mt-3" id="selectFutbol">
                             <label for="numero-cancha" class="form-label">Numero de cancha</label>
-                            <select name="nrdecancha" class="form-select" aria-label="Default select example">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mt-3 d-none" id="selectSingle">
-                            <label for="numero-cancha" class="form-label">Numero de cancha</label>
-                            <select name="nrdecancha" class="form-select" aria-label="Default select example">
-                                <option value="1" selected>1</option>
+                            <select name="nrdecancha" class="form-select" id="numero_cancha_futbol" aria-label="Default select example">
+                            <?php
+                                    require("../php/conexion.php");
+                                    $sql="SELECT cancha FROM deporte_cancha_hora JOIN deporte ON deporte_cancha_hora.id_deporte= deporte.ID WHERE deporte.Descripcion= '" . $_GET['deporte'] . "' GROUP BY id_deporte, cancha" ;
+                                    $resultado = $conexion->query($sql);
+                                    while ($valores = mysqli_fetch_array($resultado)) {
+                                        echo '<option value ="'.$valores['cancha'].'">'.$valores['cancha'].'</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="telefono" class="form-label">Teléfono</label>
                             <input type="text" name="telefono" pattern="[0-9]+" class="form-control" id="telefono" placeholder="Teléfono" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="fecha_rese" class="form-label">Dia de reserva</label>
@@ -163,7 +170,7 @@
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="sexo" class="form-label">Horario de reserva</label>
-                            <select multiple name="horario_inic" class="form-select single-height" id="horario_inic" aria-label="Default select example">
+                            <select multiple name="horario_inic[]" class="form-select single-height" id="horario_inic" aria-label="Default select example">
                             <!-- Los horarios disponibles se cargarán aquí -->
                             </select>
                         </div>
@@ -177,14 +184,17 @@
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Localidad</label>
                             <input type="text" name="localidad" pattern="[a-zA-Z\s]+" class="form-control" id="direccion" placeholder="Localidad" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Calle</label>
                             <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccionca" placeholder="Nombre de calle o Av" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Altura</label>
                             <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccionalt" placeholder="Altura" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="row mt-4 justify-content-center">
                             <div class="col-auto">
@@ -198,22 +208,61 @@
                 </div>
             </div>
     </main>
-
+                        <!--AQUI VA LA PARTE DEL FORMATO DEL TEXTO INPUT AVISAR EN TIEMPO REAL-->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-     // Captura el valor del número de cancha seleccionado y lo almacena en una variable, ya que no se ha enviado el formulario hacemos esto
-    document.getElementById('numero-cancha').addEventListener('change', function() {
-        var nrdecancha = this.value;
-    });
-</script>
+$(document).ready(function() {
+    // Función para validar en tiempo real las cajas de texto o input
+    function validateInput(input, regex, errorMessage) {
+        $(input).on('input', function() {
+            const value = $(this).val();
+            if (!regex.test(value)) {
+                $(this).css('border-color', 'black');
+                $(this).next('.error-message').text(errorMessage).show();
+            } else {
+                $(this).css('border-color', '');
+                $(this).next('.error-message').hide();
+            }
+        });
+    }
 
-<!--aca recibimos la fecha y la convertimos en ID segun el dia -->
+    // Validar campos en tiempo real
+    validateInput('#nombre', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+    validateInput('#apellido', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+    validateInput('#numero', /^[0-9]+$/, 'Solo se permiten números.');
+    validateInput('#telefono', /^[0-9]+$/, 'Solo se permiten números.');
+    validateInput('#direccion', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+    validateInput('#direccionca', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+    validateInput('#direccionalt', /^[0-9]+$/, 'Solo se permiten números.');
+
+    // Mostrar/ocultar campo de número de socio
+    $('input[name="radiosocio"]').on('change', function() {
+        if ($('#flexRadioDefault1').is(':checked')) {
+            $('#nrsocio').prop('disabled', false);
+        } else {
+            $('#nrsocio').prop('disabled', true).val('');
+        }
+    });
+});
+</script>
 
 
 <script>
     document.getElementById('fecha_rese').addEventListener('change', function() {
+        $('#numero_cancha_futbol').on('change', function () {
+                $('#fecha_rese').val(''); // Limpiar la fecha de reserva
+                $('#horario_inic').empty(); // Limpiar los horarios disponibles
+        });
+        $('#numero_cancha_futbol').on('change input', function () {
+            var nrdecancha = $(this).val();
+            obtenerHorariosDisponibles();
+        });
+        
+        $('#deporte').on('input', function(){
+            var deporte = $(this).val();
+        }) 
         var fecha = new Date(this.value);
         var diaSemana = fecha.getDay(); 
-
         var diaMap = {
             0: 1, // lunes
             1: 2, // martes
@@ -226,42 +275,41 @@
 
         var idDia = diaMap[diaSemana];
         var fechaReserva = this.value; // Obtener la fecha de reserva seleccionada
-
-        /*var deporte = document.getElementById('deporte').value;
-        var nrdecancha = document.getElementById('numero-cancha').value;
+        var deporte = document.getElementById('deporte').value;
+        var nrdecancha = $('#numero_cancha_futbol').val();
       
-        obtenerHorariosDisponibles(idDia, deporte, nrdecancha, fechaReserva); */
-        obtenerHorariosDisponibles(idDia, fechaReserva);
+       obtenerHorariosDisponibles(idDia, fechaReserva, deporte, nrdecancha);
     });
-         // aca recibimos los horarios disponibles de la consulta  y hacemos la funcion para mostrar los datos obtenidos en el php 
-
-
-    function obtenerHorariosDisponibles(idDia, fechaReserva) {
+        
+    function obtenerHorariosDisponibles(idDia, fechaReserva, deporte, nrdecancha) {
         $.ajax({
             url: '../php/obtener_horarios.php',
             method: 'GET',
-            //data: { id_dia: idDia, deporte: deporte, nrdecancha: nrdecancha, fecha_rese: fechaReserva },
-            data: { id_dia: idDia, fecha_rese: fechaReserva },
+            data: { id_dia: idDia, fecha_rese: fechaReserva, deporte: deporte, nrdecancha: nrdecancha },
             dataType: 'json',
             success: function(data) {
                 var horarioSelect = $('#horario_inic');
                 horarioSelect.empty(); // Vaciar el select de horarios
-
+               
                 if (data && data.length > 0) {
+                    
                     data.forEach(function(horario) {
                         horarioSelect.append(new Option(horario.hora_inicio + ' - ' + horario.hora_finalizado, horario.id));
                     });
                 } else {
+                    //alert(idDia + '-' + deporte + '-' + nrdecancha);
                     horarioSelect.append(new Option('No hay horarios disponibles', ''));
                 }
             },
         error: function() {
+            //alert(idDia + '-' + fechaReserva);
             alert('Error al obtener los horarios disponibles.');
         }
     });
 }
 
 </script>  
+                        
 
         <!--aqui va el script de buscar datos del socio si llega hacer socio-->
 <script>
@@ -332,7 +380,7 @@
     });
 </script>
 
-   
+  
     <script>
         // Función para obtener el valor del parámetro 'deporte' de la URL
         function getDeporteFromURL() {
@@ -354,18 +402,20 @@
                     "hockey": 3,
                     "basquet": 4,
                 };
-
+                
                 // Asignar el valor del ID del deporte al campo oculto
                 const deporteInput = document.getElementById('deporte');
                 deporteInput.value = deporteMap[deporte.toLowerCase()];
+                deporteIdInput.value = deporteInput.value;
             }
         }
-
-        // Función para habilitar o deshabilitar el input de número de socio
+    
+        // Función para habilitar o deshabilitar el input de número de socio y limpiar el formulario
         function toggleNrsocioInput() {
             const radioSi = document.getElementById('flexRadioDefault1');
             const radioNo = document.getElementById('flexRadioDefault2');
             const nrsocioInput = document.getElementById('nrsocio');
+            const form = document.forms['nuevo socio'];
 
             if (radioSi.checked) {
                 nrsocioInput.disabled = false;
@@ -373,6 +423,8 @@
             else if (radioNo.checked) {
                 nrsocioInput.disabled = true;
                 nrsocioInput.value = '';
+                // Limpiar todos los campos del formulario
+                form.reset();
             }
         }
 
@@ -393,18 +445,6 @@
         document.getElementById('header').innerText = deporte;
         document.getElementById('deporte').value = deporte;
 
-        // Mostrar/ocultar selectores basados en el deporte
-        const selectFutbol = document.getElementById('selectFutbol');
-        const selectSingle = document.getElementById('selectSingle');
-
-        if (deporte.toLowerCase() === 'futbol') {
-            selectFutbol.classList.remove('d-none');
-            selectSingle.classList.add('d-none');
-        } else {
-            selectFutbol.classList.add('d-none');
-            selectSingle.classList.remove('d-none');
-        }
-
         // Habilitar/Deshabilitar campo de número de socio
         const radioSocioSi = document.getElementById('flexRadioDefault1');
         const radioSocioNo = document.getElementById('flexRadioDefault2');
@@ -418,10 +458,14 @@
             nrSocioInput.disabled = radioSocioNo.checked;
         });
     </script>
+
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybBogGzG6LR1Knn8eJ2z9ndiN8QwI1xzC1H6wXH7xR6A9dakt" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-qljovkHYa/Q5PoF6NHTQQ1/2e6bJVjy3Eds5DZjw+grc5mrbLU5S8e1moP6KTKP6" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   
+
 </body>
 </html>

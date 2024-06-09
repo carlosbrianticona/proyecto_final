@@ -16,7 +16,7 @@ if (!$conexion) {
 }
 
 //else {
-//    echo "conexion exitosa";
+ //   echo "conexion exitosa";
 //}
 
 ?>

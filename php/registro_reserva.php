@@ -1,24 +1,26 @@
 <?php
 
 include("conexion.php");
+$radiosocio = $_POST['radiosocio'];
+$nrsocio = isset($_POST['nrsocio']) ? $_POST['nrsocio'] : null;
+$nombre = $_POST['nombre'];
+$apellido = $_POST['apellido'];
+$tipo_documento = $_POST['tipo_documento'];
+$nr_documento = $_POST['nr_documento'];
+$genero = $_POST['genero'];
+$correo = $_POST['correo'];
+$fecha_nac = $_POST['fecha_nac'];
+$nrdecancha = $_POST['nrdecancha'];
+$telefono = $_POST['telefono'];
+$fecha_rese = $_POST['fecha_rese'];
+$horario_inic = $_POST['horario_inic']; // Array de horarios seleccionados
+$localidad = $_POST['localidad'];
+$calle = $_POST['calle'];
+$altura = $_POST['altura'];
+$deporte = $_POST['deporte'];
+$nrdecancha = $_POST['nrdecancha'];
 
-$nrsocio = isset($_POST["nrsocio"]) ? $_POST["nrsocio"] : null;
-$nombre = $_POST["nombre"];
-$apellido = $_POST["apellido"];
-$tipo_documento = $_POST["tipo_documento"];
-$nr_documento = $_POST["nr_documento"];
-$genero = $_POST["genero"];
-$correo = $_POST["correo"];
-$fecha_nac = $_POST["fecha_nac"];
-$nrdecancha = $_POST["nrdecancha"];
-$horario_inic = $_POST["horario_inic"];
-$horario_fin = $_POST["horario_fin"];
-$fecha_rese = $_POST["fecha_rese"];
-$telefono = $_POST["telefono"];
-$localidad = $_POST["localidad"];
-$calle = $_POST["calle"];
-$altura = $_POST["altura"];
-$deporte = $_POST["deporte"]; // Recuperar el deporte seleccionado
+ // Recuperar el deporte seleccionado
 
 // Comprobación adicional para asegurarse de que el deporte es un ID válido
 if (!is_numeric($deporte)) {
@@ -26,44 +28,53 @@ if (!is_numeric($deporte)) {
     exit();
 }
 
-// Insertar datos en la tabla persona
-$sql_persona = "INSERT INTO persona (Numero_Documento, id_tipo_de_documento, Apellido, Nombre, Numero_de_socio, Email, id_genero, telefono, fecha_nac, Localidad, Calle, Altura)
- VALUES ('$nr_documento', '$tipo_documento', '$apellido', '$nombre', '$nrsocio', '$correo', '$genero', '$telefono', '$fecha_nac', '$localidad', '$calle', '$altura')";
-
-if ($conexion->query($sql_persona) === TRUE) {
-    $id_persona = $conexion->insert_id; // Obtener el ID de la última inserción
-    //echo "Datos guardados exitosamente. ";
+// Verifica si la persona ya está registrada o si es un nuevo registro
+if ($radiosocio == 'si' && $nrsocio) {
+    // Si es socio, buscar la persona en la base de datos por el número de socio
+    $query = "SELECT ID FROM persona WHERE Numero_de_socio = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("i", $nrsocio);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $persona = $result->fetch_assoc();
+    if ($persona) {
+        $id_persona = $persona['ID'];
+    } else {
+        // Manejar el caso en que no se encuentra el socio
+        die("Número de socio no encontrado.");
+    }
 } else {
-    echo "Error al guardar datos del socio: " . $conexion->error;
-    exit();
+    // Si no es socio o es un nuevo registro, insertar los datos en la tabla persona
+    $query = "INSERT INTO persona (Numero_Documento, id_tipo_de_documento, Apellido, Nombre, Numero_de_socio, Email, id_genero, activa_s_n, telefono, fecha_nac, Localidad, Calle, Altura)
+              VALUES (?, ?, ?, ?, ?, ?, ?, 'SI', ?, ?, ?, ?, ?)";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("iissisiisssi", $nr_documento, $tipo_documento, $apellido, $nombre, $nrsocio, $correo, $genero, $telefono, $fecha_nac, $localidad, $calle, $altura);
+    $stmt->execute();
+    $id_persona = $stmt->insert_id;
 }
 
-// Insertar datos en la tabla deporte_cancha_hora
-$sql_deporte_cancha_hora = "INSERT INTO deporte_cancha_hora (id_deporte, cancha, hora_inicio, hora_finalizado) VALUES ('$deporte', '$nrdecancha', '$horario_inic', '$horario_fin')";
+// Ahora insertar las reservas en la tabla reserva
+foreach ($horario_inic as $hora) {
+    // Buscar el ID correspondiente en la tabla deporte_cancha_hora
+    $query = "SELECT ID FROM deporte_cancha_hora WHERE id_deporte = ? AND cancha = ? AND hora_inicio = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->bind_param("iis", $deporte, $nrdecancha, $hora);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $deporte_cancha_hora = $result->fetch_assoc();
+    if ($deporte_cancha_hora) {
+        $id_deporte_cancha_hora = $deporte_cancha_hora['ID'];
 
-if ($conexion->query($sql_deporte_cancha_hora) === TRUE) {
-    $id_deporte_cancha_hora = $conexion->insert_id; // Obtener el ID de la última inserción
-    //echo "Datos del deporte, cancha y horario guardados exitosamente.";
-} else {
-    echo "Error al guardar datos del deporte, cancha y horario: " . $conexion->error;
-    exit();
-}
-
-// Insertar datos en la tabla reserva
-$sql_reserva = "INSERT INTO reserva (fecha_de_reserva, id_persona, id_deporte_cancha_hora) VALUES ('$fecha_rese', '$id_persona', '$id_deporte_cancha_hora')";
-
-if ($conexion->query($sql_reserva) === TRUE) {
-    echo "<script>
-                    alert('Datos de la reserva guardados exitosamente.');
-                    window.location.href = '../pages/reserva-de-canchas.html';
-                  </script>";
-} else {
-    echo "<script>
-                    alert('Error al guardar datos de la reserva: " . mysqli_error($conexion) . "');
-                    window.location.href = '../index.html';
-                  </script>";
-    //echo "Error al guardar datos de la reserva: " . $conexion->error;
-    exit();
+        // Insertar la reserva
+        $query = "INSERT INTO reserva (id_persona, id_deporte_cancha_hora, fecha_de_reserva, abono_reserva)
+                  VALUES (?, ?, ?, 'SI')";
+        $stmt = $conexion->prepare($query);
+        $stmt->bind_param("iis", $id_persona, $id_deporte_cancha_hora, $fecha_rese);
+        $stmt->execute();
+    } else {
+        // Manejar el caso en que no se encuentra el horario
+        die("Horario no encontrado.");
+    }
 }
 
 // Cerrar la conexión
