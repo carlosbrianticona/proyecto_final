@@ -20,7 +20,7 @@
             <nav>
                 <ul class="nav-link">
                     <li><a href="#">TIENDA</a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="https://www.instagram.com/san_carlos_oficial/?hl=es"><i class="fa-brands fa-instagram"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                 </ul>
