@@ -4,11 +4,11 @@ include("conexion.php");
 
 
 if (isset($_GET['id_dia']) && isset($_GET['deporte']) && isset($_GET['nrdecancha'])) { 
-
+  
   $id_dia = intval($_GET['id_dia']);
   $deporte = intval($_GET['deporte']);
   $nrdecancha = intval($_GET['nrdecancha']);
-
+  
     $sql = "SELECT hora_inicio, hora_finalizado FROM deporte_cancha_hora LEFT JOIN Reserva ON deporte_cancha_hora.ID= Reserva.`id_deporte_cancha_hora` LEFT JOIN deporte on deporte.ID= deporte_cancha_hora.id_deporte WHERE deporte_cancha_hora.`id_dia`= ? AND deporte.ID= ? AND deporte_cancha_hora.`cancha`= ? AND reserva.id IS NULL; ";
     
     $stmt = $conexion->prepare($sql);
@@ -23,7 +23,7 @@ if (isset($_GET['id_dia']) && isset($_GET['deporte']) && isset($_GET['nrdecancha
 
     echo json_encode($horarios);
 } else {
-      
+    
     echo json_encode(array('error' => 'Parametros faltantes'));
     }
 

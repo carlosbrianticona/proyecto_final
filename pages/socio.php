@@ -86,10 +86,12 @@
                         <div class="col-md-6">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" name="nombresocio" pattern="[a-zA-Z\s]+" id="nombre" placeholder="Nombre" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-6">
                             <label for="apellido" class="form-label">Apellido</label>
                             <input type="text" class="form-control" name="apellidosocio" pattern="[a-zA-Z\s]+" id="apellido" placeholder="Apellido" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>  
                             <div class="col-md-4 mt-3">
                                 <label for="tipo-de-documento" class="form-label">Tipo de documento</label>
@@ -106,7 +108,9 @@
                             </div>
                             <div class="col-md-4 mt-3">
                                 <label for="numero" class="form-label">Número</label>
-                                <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" required>
+                                <label for="numero" class="form-label">(de 9 a 11 digitos)</label>
+                                <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" minlength="9" maxlength="11" required>
+                                <div class="error-message text" style="display:none; color:white;"></div>
                             </div>
                             <div class="col-md-4 mt-3">
                                 <label for="sexo" class="form-label">Sexo</label>
@@ -132,18 +136,22 @@
                         <div class="col-md-6">
                             <label for="telefono" class="form-label">Teléfono</label>
                             <input type="text" name="telefono" pattern="[0-9]+" class="form-control" id="telefono" placeholder="Teléfono" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-6">
                             <label for="direccion" class="form-label">Localidad</label>
                             <input type="text" name="localidad" pattern="[a-zA-Z\s]+" class="form-control" id="direccion"  placeholder="Localidad" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-6">
                             <label for="direccion" class="form-label">Calle</label>
-                            <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccion"  placeholder="Nombre de calle o Av" required>
+                            <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccionca"  placeholder="Nombre de calle o Av" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-6">
                             <label for="direccion" class="form-label">Altura</label>
-                            <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccion"  placeholder="Altura" required>
+                            <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccionalt"  placeholder="Altura" required>
+                            <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="row mt-4 justify-content-center">
                             <div class="col-auto">
@@ -160,5 +168,32 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Función para validar en tiempo real las cajas de texto o input
+        function validateInput(input, regex, errorMessage) {
+            $(input).on('input', function() {
+                const value = $(this).val();
+                if (!regex.test(value)) {
+                    $(this).css('border-color', 'black');
+                    $(this).next('.error-message').text(errorMessage).show();
+                } else {
+                    $(this).css('border-color', '');
+                    $(this).next('.error-message').hide();
+                }
+            });
+        }
+
+        // Validar campos en tiempo real
+        validateInput('#nombre', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+        validateInput('#apellido', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+        validateInput('#numero', /^[0-9]+$/, 'Solo se permiten números.');
+        validateInput('#telefono', /^[0-9]+$/, 'Solo se permiten números.');
+        validateInput('#direccion', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+        validateInput('#direccionca', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+        validateInput('#direccionalt', /^[0-9]+$/, 'Solo se permiten números.');
+    });
+</script>
 </body>
 </html>

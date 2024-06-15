@@ -119,10 +119,12 @@
                                     }
                                 ?>
                             </select>
+                            <input type="hidden" id="tipo-de-documento-hidden" name="tipo_documento">
                         </div>
                         <div class="col-md-4 mt-3">
-                            <label for="numero" class="form-label">Número</label>
-                            <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" required>
+                        <label for="numero" class="form-label">Número</label>
+                                <label for="numero" class="form-label">(de 9 a 11 digitos)</label>
+                                <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" minlength="9" maxlength="11" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
@@ -137,6 +139,7 @@
                                     }
                                 ?>
                             </select>
+                            <input type="hidden" id="sexo-hidden" name="genero">
                         </div>  
                         <div class="col-md-6 mt-3">
                             <label for="email" class="form-label">Email</label>
@@ -196,6 +199,7 @@
                             <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccionalt" placeholder="Altura" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
+                        <input type="hidden" id="id_dia" name="id_dia">
                         <div class="row mt-4 justify-content-center">
                             <div class="col-auto">
                                 <input type="submit" name="reservar" class="btn btn-success" value="Reservar">
@@ -245,7 +249,25 @@ $(document).ready(function() {
     });
 });
 </script>
+<!--ID DIA PARA EL FORMULARIO Y ENVIARLO POST:-->
+<script>
+    document.getElementById('fecha_rese').addEventListener('change', function() {
+        var fecha = new Date(this.value);
+        var diaSemana = fecha.getDay(); 
+        var diaMap = {
+            0: 1, // lunes
+            1: 2, // martes
+            2: 3, // Miercoles
+            3: 4, // jueves
+            4: 5, // viernes
+            5: 6, // sabado
+            6: 7,  // domingo
+        };
 
+        var idDia = diaMap[diaSemana];
+        document.getElementById('id_dia').value = idDia;
+    });
+</script>
 
 <script>
     document.getElementById('fecha_rese').addEventListener('change', function() {
@@ -294,10 +316,11 @@ $(document).ready(function() {
                 if (data && data.length > 0) {
                     
                     data.forEach(function(horario) {
+                        //alert(idDia/* + '-' + deporte + '-' + nrdecancha*/);
                         horarioSelect.append(new Option(horario.hora_inicio + ' - ' + horario.hora_finalizado, horario.id));
                     });
                 } else {
-                    //alert(idDia + '-' + deporte + '-' + nrdecancha);
+                    //alert(idDia/* + '-' + deporte + '-' + nrdecancha*/);
                     horarioSelect.append(new Option('No hay horarios disponibles', ''));
                 }
             },
@@ -324,17 +347,19 @@ $(document).ready(function() {
                     dataType: 'json',
                     success: function(data){
                         if (data && Object.keys(data).length > 0 && !data.error) {
-                            $('#nombre').val(data.Nombre);
-                            $('#apellido').val(data.Apellido);
-                            $('#tipo-de-documento').val(data.id_tipo_de_documento);
-                            $('#numero').val(data.Numero_Documento);
-                            $('#sexo').val(data.id_genero);
-                            $('#email').val(data.Email);
-                            $('#fecha-de-nacimiento').val(data.fecha_nac);
-                            $('#telefono').val(data.telefono);
-                            $('#direccion').val(data.Localidad);
-                            $('#direccionca').val(data.Calle);
-                            $('#direccionalt').val(data.Altura);
+                            $('#nombre').val(data.Nombre).prop('readonly', true);
+                            $('#apellido').val(data.Apellido).prop('readonly', true);
+                            $('#tipo-de-documento').val(data.id_tipo_de_documento).prop('disabled', true);
+                            $('#tipo-de-documento-hidden').val(data.id_tipo_de_documento);
+                            $('#numero').val(data.Numero_Documento).prop('readonly', true);
+                            $('#sexo').val(data.id_genero).prop('disabled', true);
+                            $('#sexo-hidden').val(data.id_genero);
+                            $('#email').val(data.Email).prop('readonly', true);
+                            $('#fecha-de-nacimiento').val(data.fecha_nac).prop('readonly', true);
+                            $('#telefono').val(data.telefono).prop('readonly', true);
+                            $('#direccion').val(data.Localidad).prop('readonly', true);
+                            $('#direccionca').val(data.Calle).prop('readonly', true);
+                            $('#direccionalt').val(data.Altura).prop('readonly', true);
 
                             // Ocultar mensaje de error si la respuesta es exitosa
                             $('#error-message').hide();

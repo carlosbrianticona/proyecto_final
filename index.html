@@ -123,7 +123,7 @@
       <div class="container posicion-conteiner">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form class="row g-3">
+                <form name="Contacto" class="row g-3" action="./php/mandarmail.php" method="POST" action="mandarmail.php">
                     <div class="col-md-3 mt-5 offset-md-2 ">
                         <p class="text-white parrafo"><strong>Contacto</strong></p>
                     </div>
@@ -131,20 +131,21 @@
                         <p class="text-white parrafo"><strong>Direccion</strong></p>
                     </div>
                     <div class="col-md-6 text-center">
-                      <label for="nombre" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                      <label  for="nombre" class="form-label">Nombre</label>
+                      <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre">
                       <label for="nombre" class="form-label mt-2">Correo Electronico</label>
-                      <input type="text" class="form-control" id="nombre" placeholder="Correo">
+                      <input name="correo " type="text" class="form-control" id="correo" placeholder="Correo">
                       <label for="nombre" class="form-label mt-2">Dejanos tu consulta</label>
-                      <textarea class="form-control"  cols="45" rows="5"></textarea>
+
+                      <textarea name="Descripcion" class="form-control"  cols="45" rows="5" id="detalles" placeholder="ingrese su detalle" required></textarea>
                       <div class="col-auto mt-3 mb-3">
-                        <a class="btn btn-light" href="metedo-de-pago.html">Enviar</a>
+                        <input type="submit" name="enviar" class="btn btn-light" value="ENVIAR"> 
+                        <input type="reset" name="borrar" class="btn btn-light" value="BORRAR"> 
                       </div>
                     </div>
                     <div class="col-md-6 px-3">
                       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4699.03323505802!2d-59.79947380969555!3d-34.179924227885095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bbd83298154d17%3A0x1c9857d60d815d81!2sCLUB%20SOCIAL%20Y%20DEPORTIVO%20SAN%20CARLOS!5e0!3m2!1ses-419!2sar!4v1716605343188!5m2!1ses-419!2sar" width="500" height="320" style="border:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    
+                    </div>  
                 </form>
               </div>
             </div>
