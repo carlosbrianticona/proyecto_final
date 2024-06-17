@@ -21,10 +21,15 @@ $result = $stmt->get_result();
 // Mostrar los resultados
 if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
-    echo json_encode($row);
+    if ($row['activa_s_n'] == 'NO') {
+        echo json_encode(["error" => "Socio no activo"]);
+    } else {
+        echo json_encode($row);
+    }
 } else {
     echo json_encode(["error" => "Número de socio no encontrado"]);
 }
+
 
 // Cerrar la conexión
 $conexion->close();

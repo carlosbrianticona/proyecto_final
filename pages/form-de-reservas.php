@@ -99,12 +99,12 @@
                         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
                         <div class="col-md-6">
                             <label for="nombre" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" name="nombre" pattern="[a-zA-Z\s]+" id="nombre" placeholder="Nombre" required>
+                            <input type="text" class="form-control" name="nombre" pattern="[a-zA-Z\s]+" id="nombre" placeholder="Nombre" maxlength="20" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-6">
                             <label for="apellido" class="form-label">Apellido</label>
-                            <input type="text" class="form-control" name="apellido" pattern="[a-zA-Z\s]+" id="apellido" placeholder="Apellido" required>
+                            <input type="text" class="form-control" name="apellido" pattern="[a-zA-Z\s]+" id="apellido" placeholder="Apellido" maxlength="20" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
@@ -123,8 +123,8 @@
                         </div>
                         <div class="col-md-4 mt-3">
                         <label for="numero" class="form-label">Número</label>
-                                <label for="numero" class="form-label">(de 9 a 11 digitos)</label>
-                                <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" minlength="9" maxlength="11" required>
+                                <label for="numero" class="form-label">(de 8 a 11 digitos)</label>
+                                <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" minlength="8" maxlength="11" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
@@ -143,7 +143,7 @@
                         </div>  
                         <div class="col-md-6 mt-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="correo" class="form-control" id="email" placeholder="Email" required>
+                            <input type="email" name="correo" class="form-control" id="email" placeholder="Email" maxlength="20" required>
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="fecha-de-nacimiento" class="form-label">Fecha de nacimiento</label>
@@ -164,7 +164,7 @@
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="telefono" class="form-label">Teléfono</label>
-                            <input type="text" name="telefono" pattern="[0-9]+" class="form-control" id="telefono" placeholder="Teléfono" required>
+                            <input type="text" name="telefono" pattern="[0-9]+" class="form-control" id="telefono" placeholder="Teléfono" maxlength="10" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-6 mt-3">
@@ -186,17 +186,17 @@
                         
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Localidad</label>
-                            <input type="text" name="localidad" pattern="[a-zA-Z\s]+" class="form-control" id="direccion" placeholder="Localidad" required>
+                            <input type="text" name="localidad" pattern="[a-zA-Z\s]+" class="form-control" id="direccion" placeholder="Localidad" maxlength="25" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Calle</label>
-                            <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccionca" placeholder="Nombre de calle o Av" required>
+                            <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccionca" placeholder="Nombre de calle o Av" maxlength="20" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Altura</label>
-                            <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccionalt" placeholder="Altura" required>
+                            <input type="text" name="altura" pattern="[0-9]+" class="form-control" id="direccionalt" placeholder="Altura" maxlength="5" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <input type="hidden" id="id_dia" name="id_dia">
@@ -243,8 +243,12 @@ $(document).ready(function() {
     $('input[name="radiosocio"]').on('change', function() {
         if ($('#flexRadioDefault1').is(':checked')) {
             $('#nrsocio').prop('disabled', false);
+            // Deshabilitar campos
+            $('#nombre, #apellido, #numero, #email, #telefono, #direccion, #direccionca, #direccionalt').prop('readonly', true);
         } else {
             $('#nrsocio').prop('disabled', true).val('');
+            // Habilitar campos y limpiar valores
+            $('#nombre, #apellido, #numero, #email, #telefono, #direccion, #direccionca, #direccionalt').prop('readonly', false).val('');
         }
     });
 });
