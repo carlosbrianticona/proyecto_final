@@ -21,9 +21,9 @@
             </div>
             <nav>
                 <ul class="nav-link">
-                    <li><a href="#">TIENDA</a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#" onclick="mostrarAlerta()">TIENDA</a></li>
+                    <li><a href="https://www.instagram.com/san_carlos_oficial/?hl=es"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com/club.sancarlos.10/"><i class="fa-brands fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                 </ul>
             </nav>
@@ -41,10 +41,13 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav m-auto mb-2 mb-lg-0">
                 <li class="nav-item px-4">
-                  <a class="nav-link active" href="./pages/club.html">CLUB</a>
+                    <a class="nav-link active" href="../index.html">INCIO</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="../pages/socio.php">SOCIO</a>
+                </li>
+                <li class="nav-item px-4">
+                  <a class="nav-link active" href="club.html">CLUB</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
@@ -109,7 +112,7 @@
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="tipo-de-documento" class="form-label">Tipo de documento</label>
-                            <select name="tipo_documento" class="form-select" id="tipo-de-documento" aria-label="Default select example">
+                            <select  name="tipo_documento" class="form-select" id="tipo-de-documento" aria-label="Default select example">
                                 <?php
                                     require("../php/conexion.php");
                                     $sql="SELECT ID, Descripcion from tipo_documento" ;
@@ -119,8 +122,8 @@
                                     }
                                 ?>
                             </select>
-                            <input type="hidden" id="tipo-de-documento-hidden" name="tipo_documento">
                         </div>
+                        
                         <div class="col-md-4 mt-3">
                         <label for="numero" class="form-label">Número</label>
                                 <label for="numero" class="form-label">(de 8 a 11 digitos)</label>
@@ -129,21 +132,20 @@
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="sexo" class="form-label">Sexo</label>
-                            <select name="genero" class="form-select" id="sexo" aria-label="Default select example">
+                            <select  name="genero" class="form-select" id="sexo" aria-label="Default select example">
                                 <?php
                                     require("../php/conexion.php");
                                     $sql="SELECT ID, Descripcion from genero" ;
                                     $resultado = $conexion->query($sql);
                                     while ($valores = mysqli_fetch_array($resultado)) {
-                                        echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
+                                    echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
                                     }
                                 ?>
                             </select>
-                            <input type="hidden" id="sexo-hidden" name="genero">
-                        </div>  
+                        </div>
                         <div class="col-md-6 mt-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="correo" class="form-control" id="email" placeholder="Email" maxlength="20" required>
+                            <input type="email" name="correo" class="form-control" id="email" placeholder="Email" maxlength="50" required>
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="fecha-de-nacimiento" class="form-label">Fecha de nacimiento</label>
@@ -486,6 +488,12 @@ $(document).ready(function() {
         radioSocioNo.addEventListener('change', () => {
             nrSocioInput.disabled = radioSocioNo.checked;
         });
+    </script>
+    <script>
+      // Función para mostrar el mensaje de alerta
+      function mostrarAlerta() {
+          alert('La tienda esta en mantenimiento, perdon por las molestias ocasionadas.');
+      }
     </script>
 
 

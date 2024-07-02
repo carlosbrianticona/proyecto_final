@@ -19,9 +19,9 @@
             </div>
             <nav>
                 <ul class="nav-link">
-                    <li><a href="#">TIENDA</a></li>
+                    <li><a href="#" onclick="mostrarAlerta()">TIENDA</a></li>
                     <li><a href="https://www.instagram.com/san_carlos_oficial/?hl=es"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="https://www.facebook.com/club.sancarlos.10/"><i class="fa-brands fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                 </ul>
             </nav>
@@ -52,7 +52,7 @@
                     <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
                 </li>
                 <li class="nav-item px-4">
-                    <a class="nav-link active" href="../pages/contacto.html">CONTACTO</a>
+                    <a class="nav-link active" href="#contacto">CONTACTO</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active dropdown toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">DEPORTES</a>
@@ -60,7 +60,6 @@
                         <li><a href="#" class="dropdown-item">Futbol</a></li>
                         <li><a href="#" class="dropdown-item">Voley</a></li>
                         <li><a href="#" class="dropdown-item">Basquet</a></li>
-                        <li><a href="#" class="dropdown-item">Natacion</a></li>
                         <li><a href="#" class="dropdown-item">Hockey</a></li>
                     </ul>
                 </li>
@@ -195,5 +194,74 @@
         validateInput('#direccionalt', /^[0-9]+$/, 'Solo se permiten números.');
     });
 </script>
+<script>
+      // Función para mostrar el mensaje de alerta
+      function mostrarAlerta() {
+          alert('La tienda esta en mantenimiento, perdon por las molestias ocasionadas.');
+      }
+</script>
+<section class="bg-success mt-3" id="contacto">
+        <div class="container posicion-conteiner">
+          <div class="row justify-content-center">
+              <div class="col-md-8">
+                <form name="Contacto" class="row g-3" action="../php/mandarmail.php" method="POST">
+                    <div class="col-md-3 mt-5 offset-md-2 ">
+                        <p class="text-white parrafo"><strong>Contacto</strong></p>
+                    </div>
+                    <div class="col-md-3 mt-5 offset-md-4">
+                        <p class="text-white parrafo"><strong>Direccion</strong></p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" required>
+                        <label for="correo" class="form-label mt-2">Correo Electronico</label>
+                        <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo" required>
+                        <label for="consulta" class="form-label mt-2">Dejanos tu consulta</label>
+                        <textarea name="descripcion" class="form-control" cols="45" rows="5" id="detalles" placeholder="Ingrese su consulta" required></textarea>
+                        <div class="col-auto mt-3 mb-3">
+                            <input type="submit" name="enviar" class="btn btn-light" value="ENVIAR"> 
+                            <input type="reset" name="borrar" class="btn btn-light" value="BORRAR"> 
+                        </div>
+                    </div>
+                    <div class="col-md-6 px-3">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4699.03323505802!2d-59.79947380969555!3d-34.179924227885095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bbd83298154d17%3A0x1c9857d60d815d81!2sCLUB%20SOCIAL%20Y%20DEPORTIVO%20SAN%20CARLOS!5e0!3m2!1ses-419!2sar!4v1716605343188!5m2!1ses-419!2sar" width="500" height="320" style="border:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                  </form> 
+                </div>
+              </div>
+          </div>
+  
+          <div class="card-group">
+            <div class="card anch-card alt-card">
+              <div class="card-body">
+                <h5 class="card-title">Horarios de atencion</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary mt-3">Lunes a Viernes 8:00 a 12:00 y de 16:00 a 20:00</h6>
+                <p class="card-subtitle mb-2 text-body-secondary">Sabados 6:30 a 11:30 y Domingos cerrado</p>
+              </div>
+            </div>
+            <div class="card anch-card ">
+              <div class="card-body">
+                <h5 class="card-title">Comunicate con nosotros</h5>
+                <h6 class="card-subtitle text-body-secondary mt-3">Tel: 2478-410231</h6>
+              </div>
+            </div>
+            <div class="card anch-card ">
+              <div class="card-body">
+                <h5 class="card-title">Mail</h5>
+                <h6 class="card-subtitle  text-body-secondary mt-3">clubsancarlos1941@yahoo.com.ar</h6>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </section>
+   
+      <footer class=" mt-4 text-center">
+          <p>
+            <img id="tamaño_copyright" src="/img/simbolo-de-copyright.png" alt="copyright">
+            Copyright; 2024 - Club San Carlos.
+          </p>
+      </footer>
+
 </body>
 </html>

@@ -7,8 +7,13 @@
 body{
     font-family: "Josefin Sans", sans-serif !important;
     background: url(../img/fondo-sesion.jpg) no-repeat !important;
-    background-size: cover;
-    background-position: center;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+h1{
+    font-weight: 700 !important;
+    color: #fff !important;
 }
 
 h3{
@@ -22,6 +27,11 @@ header{
     background-color: #fff;
     position: relative;
     bottom: 10px;
+}
+
+body label{
+    color: #fff !important;
+    font-family: "Josefin Sans", sans-serif;
 }
 
 
@@ -55,30 +65,4 @@ header{
     position: relative;
     top: 10px;
     padding: 0 20px;
-}
-
-.posicion-buscar{
-    margin-top: 40px;
-}
-
-.btn-buscar{
-    position: relative;
-    left: 10px;
-}
-
-.texto-dni{
-    position: relative;
-    top: 10px;
-    right: 10px;
-
-}
-
-main div label{
-    color: #fff;
-    font-weight: 700
-}
-
-.btn-guardar-cambios{
-    position: relative;
-    left: 450px;
 }

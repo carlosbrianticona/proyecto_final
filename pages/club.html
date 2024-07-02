@@ -19,14 +19,14 @@
             </div>
             <nav>
                 <ul class="nav-link">
-                    <li><a href="#">TIENDA</a></li>
+                    <li><a href="#" onclick="mostrarAlerta()">TIENDA</a></li>
                     <li><a href="https://www.instagram.com/san_carlos_oficial/?hl=es"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="https://www.facebook.com/club.sancarlos.10/"><i class="fa-brands fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                 </ul>
             </nav>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-success">Administrador</button>
+                <a href="admin.php"><button type="button" class="btn btn-success">Administrador</button></a>
                 <select name="idioma" id="idioma">
                     <option value="español">Español</option>
                     <option value="ingles">Ingles</option>
@@ -44,13 +44,16 @@
                     <a class="nav-link active" href="../index.html">INICIO</a>
                 </li>
                 <li class="nav-item px-4">
-                    <a class="nav-link active" href="./pages/club.html">CLUB</a>
+                    <a class="nav-link active" href="socio.php">SOCIO</a>
+                  </li>
+                <li class="nav-item px-4">
+                    <a class="nav-link active" href="club.html">CLUB</a>
                 </li>
                 <li class="nav-item px-4">
                     <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
                 </li>
                 <li class="nav-item px-4">
-                    <a class="nav-link active" href="./pages/contacto.html">CONTACTO</a>
+                    <a class="nav-link active" href="#contacto">CONTACTO</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link active dropdown toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">DEPORTES</a>
@@ -227,5 +230,11 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        // Función para mostrar el mensaje de alerta
+        function mostrarAlerta() {
+            alert('La tienda esta en mantenimiento, perdon por las molestias ocasionadas.');
+        }
+    </script>
 </body>
 </html>

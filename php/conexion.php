@@ -2,7 +2,7 @@
 $servidor ="localhost"; 
 $usuario="root";        
 $contraseña="";         
-$BD="club_san_carlos";          
+$BD="clubsancarlos";          
 
 //creamos con una variable la conexion es un comando que usaremos
 
