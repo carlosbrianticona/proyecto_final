@@ -1,29 +1,16 @@
 <?php
 
-
-
 include("conexion.php");
 $radiosocio = $_POST['radiosocio'];
 $nrsocio = isset($_POST['nrsocio']) ? $_POST['nrsocio'] : null;
-$nombre = $_POST['nombre'];
-$apellido = $_POST['apellido'];
-$tipo_documento = isset($_POST['tipo_documento']) ? $_POST['tipo_documento'] : null;
-//$tipo_documento = $_POST['tipo_documento'];
-$nr_documento = $_POST['nr_documento'];
-//$genero = $_POST['genero'];
-$sexo = isset($_POST['genero']) ? $_POST['genero'] : null;
-$correo = $_POST['correo'];
-$fecha_nac = $_POST['fecha_nac'];
-$nrdecancha = $_POST['nrdecancha'];
-$telefono = $_POST['telefono'];
-$fecha_rese = $_POST['fecha_rese'];
-$horario_inic = $_POST['horario_inic']; // Array de horarios seleccionados
-$localidad = $_POST['localidad'];
-$calle = $_POST['calle'];
-$altura = $_POST['altura'];
+
 $deporte = $_POST['deporte'];
 $nrdecancha = $_POST['nrdecancha'];
 $id_dia = $_POST['id_dia'];
+$fecha_rese = $_POST['fecha_rese'];
+$horario_inic = $_POST['horario_inic']; // Array de horarios seleccionados
+
+
 
  // Recuperar el deporte seleccionado
 
@@ -36,7 +23,7 @@ if (!is_numeric($deporte)) {
 // Verifica si la persona ya está registrada o si es un nuevo registro
 if ($radiosocio == 'si' && $nrsocio) {
     // Si es socio, buscar la persona en la base de datos por el número de socio
-    $query = "SELECT ID FROM persona WHERE Numero_de_socio = ?";
+    $query = "SELECT ID, Nombre, Apellido, Email FROM persona WHERE Numero_de_socio = ?";
     $stmt = $conexion->prepare($query);
     $stmt->bind_param("i", $nrsocio);
     $stmt->execute();
@@ -44,18 +31,60 @@ if ($radiosocio == 'si' && $nrsocio) {
     $persona = $result->fetch_assoc();
     if ($persona) {
         $id_persona = $persona['ID'];
+        $nombre = $persona['Nombre'];
+        $apellido = $persona['Apellido'];
+        $correo = $persona['Email'];
     } else {
         // Manejar el caso en que no se encuentra el socio
         die("Número de socio no encontrado.");
     }
 } else {
-    // Si no es socio o es un nuevo registro, insertar los datos en la tabla persona
-    $query = "INSERT INTO persona (Numero_Documento, id_tipo_de_documento, Apellido, Nombre, Numero_de_socio, Email, id_genero, activa_s_n, telefono, fecha_nac, Localidad, Calle, Altura)
-              VALUES (?, ?, ?, ?, ?, ?, ?, 'SI', ?, ?, ?, ?, ?)";
+    // Si no es socio verificar si el número de documento ya existe
+
+    $nr_documento = $_POST['nr_documento'];
+    $query = "SELECT ID, Nombre, Apellido, Email, activa_s_n FROM persona WHERE Numero_Documento = ?";
     $stmt = $conexion->prepare($query);
-    $stmt->bind_param("iissisiisssi", $nr_documento, $tipo_documento, $apellido, $nombre, $nrsocio, $correo, $genero, $telefono, $fecha_nac, $localidad, $calle, $altura);
+    $stmt->bind_param("i", $nr_documento);
     $stmt->execute();
-    $id_persona = $stmt->insert_id;
+    $result = $stmt->get_result();
+    $persona = $result->fetch_assoc();
+    if ($persona) {
+        if ($persona['activa_s_n'] === 'NO') {
+            echo "<script>
+                    alert('Persona no disponible comunicate con el club.');
+                    window.location.href = '../pages/reserva-de-canchas.html';
+                  </script>";
+            exit();
+        }
+        // Si el documento ya existe, usar los datos existentes
+        $id_persona = $persona['ID'];
+        $nombre = $persona['Nombre'];
+        $apellido = $persona['Apellido'];
+        $correo = $persona['Email'];
+    } else {
+        // Si no existe el documento, insertar los datos en la tabla persona
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $tipo_documento = $_POST["tipo_documento"];
+        $nr_documento = $_POST['nr_documento'];
+        $genero = $_POST["genero"];
+        $correo = $_POST['correo'];
+        $fecha_nac = $_POST['fecha_nac'];
+        $telefono = $_POST['telefono'];
+        $localidad = $_POST['localidad'];
+        $calle = $_POST['calle'];
+        $altura = $_POST['altura'];
+        $query = "INSERT INTO persona (Numero_Documento, id_tipo_de_documento, Apellido, Nombre, Numero_de_socio, Email, id_genero, activa_s_n, telefono, fecha_nac, Localidad, Calle, Altura)
+                VALUES (?, ?, ?, ?, ?, ?, ?, 'SI', ?, ?, ?, ?, ?)";
+        $stmt = $conexion->prepare($query);
+        $stmt->bind_param("iissisiisssi", $nr_documento, $tipo_documento, $apellido, $nombre, $nrsocio, $correo, $genero, $telefono, $fecha_nac, $localidad, $calle, $altura);
+        $stmt->execute();
+        $id_persona = $stmt->insert_id;
+    }
+
+
+
+    
 }
 
 // Ahora insertar las reservas en la tabla reserva
@@ -102,42 +131,6 @@ foreach ($horario_inic as $hora) {
         die("Horario no encontrado.");
     }
 }
-/*
-$mail = new PHPMailer(true);
-
-try {
-    // Configurar el servidor SMTP externo (por ejemplo, Gmail SMTP)
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'mlpqqot@gmail.com';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
-
-    // Resto de tu código...
-
-    // Después de insertar la reserva en la tabla reserva
-    //$id_reserva = $stmt->insert_id;
-
-    // Enviar el correo electrónico de confirmación
-    $to = $correo;
-    $subject = "Confirmación de Reserva";
-    $message = "Hola $nombre $apellido,\n\nTu reserva ha sido realizada con éxito.\nNúmero de reserva: $id_reserva\nFecha de reserva: $fecha_rese\n\nGracias por tu preferencia.";
-    
-    // Configurar el correo electrónico
-    $mail->setFrom('mlpqqto@gmail.com', 'Marcos Luis');
-    $mail->addAddress($to);
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-
-    // Enviar el correo electrónico
-    $mail->send();
-    echo 'El correo electrónico ha sido enviado correctamente.';
-    
-} catch (Exception $e) {
-    echo "Error al enviar el correo electrónico: {$mail->ErrorInfo}";
-} */
-
 // PARA MOSTRAR LOS BOTONEEES DE REDIRECCIONAMIENTO AL PAGO
 echo "
 <!DOCTYPE html>
