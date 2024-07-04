@@ -22,14 +22,14 @@
             </div>
             <nav>
                 <ul class="nav-link">
-                    <li><a href="#">TIENDA</a></li>
+                    <li><a href="#" onclick="mostrarAlerta()">TIENDA</a></li>
                     <li><a href="https://www.instagram.com/san_carlos_oficial/?hl=es"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="https://www.facebook.com/club.sancarlos.10/"><i class="fa-brands fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                 </ul>
             </nav>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button type="button" class="btn btn-success">Administracion</button>
+                <a href="admin.php"><button type="button" class="btn btn-success">Administrador</button></a>
                 <select name="idioma" id="idioma">
                     <option value="español">Español</option>
                     <option value="ingles">Inglés</option>
@@ -42,10 +42,13 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav m-auto mb-2 mb-lg-0">
                         <li class="nav-item px-4">
-                            <a class="nav-link active" href="club.html">CLUB</a>
+                            <a class="nav-link active" href="../index.html">INICIO</a>
                         </li>
                         <li class="nav-item px-4">
                             <a class="nav-link active" href="socio.php">SOCIO</a>
+                        </li>
+                        <li class="nav-item px-4">
+                            <a class="nav-link active" href="club.html">CLUB</a>
                         </li>
                         <li class="nav-item px-4">
                             <a class="nav-link active" href="reserva-de-canchas.html">RESERVAS DE CANCHA</a>
@@ -100,7 +103,7 @@
                             </div>
                             <div class="col-md-12 mt-3">
                                 <input type="hidden" id="reserva_id" value="<?php echo $id_reserva; ?>">
-                                <button type="button" class="btn btn-success btn-separado" id="echoButton" name="Echo" >Echo</button>
+                                <button type="button" class="btn btn-success btn-separado" id="echoButton" name="Echo" >Hecho</button>
                                 <button type="button" class="btn btn-danger" id="Cancelar_pago1" name="Cancelar_pago1">Cancelar</button>
                             </div>
                             
@@ -223,7 +226,12 @@
         document.getElementById('echoButton').addEventListener('click', actualizarReserva);
         document.getElementById('pagarButton').addEventListener('click', actualizarReserva);
     </script>
-
+    <script>
+      // Función para mostrar el mensaje de alerta
+      function mostrarAlerta() {
+          alert('La tienda esta en mantenimiento, perdon por las molestias ocasionadas.');
+      }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 </body>
