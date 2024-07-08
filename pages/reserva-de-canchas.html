@@ -19,9 +19,9 @@
             </div>
             <nav>
                 <ul class="nav-link">
-                    <li><a href="#">TIENDA</a></li>
+                    <li><a href="#" onclick="mostrarAlerta()">TIENDA</a></li>
                     <li><a href="https://www.instagram.com/san_carlos_oficial/?hl=es"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="https://www.facebook.com/club.sancarlos.10/"><i class="fa-brands fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                 </ul>
             </nav>
@@ -45,6 +45,9 @@
                   <a class="nav-link active" href="../pages/socio.php">SOCIO</a>
                 </li>
                 <li class="nav-item px-4">
+                  <a class="nav-link active" href="club.html">CLUB</a>
+                </li>
+                <li class="nav-item px-4">
                   <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
                 </li>
                 <li class="nav-item px-4">
@@ -56,7 +59,6 @@
                         <li><a href="#" class="dropdown-item">Futbol</a></li>
                         <li><a href="#" class="dropdown-item">Voley</a></li>
                         <li><a href="#" class="dropdown-item">Basquet</a></li>
-                        <li><a href="#" class="dropdown-item">Natacion</a></li>
                         <li><a href="#" class="dropdown-item">Hockey</a></li>
                     </ul>
                 </li>
@@ -77,7 +79,8 @@
                     <div class="card card-body">
                         <section class="row pt-2 mx-auto">
                             <div class="col col-3">
-                                <a href="form-de-reservas.php?deporte=futbol" class="p-0 m-auto btn btn-success"><dt>FUTBOL</dt></a>
+                                <button class="p-0 m-auto btn btn-success" onclick="verificarDisponibilidad('futbol')"><dt>FUTBOL</dt></button>
+                            <!--    <a href="form-de-reservas.php?deporte=futbol" class="p-0 m-auto btn btn-success"><dt>FUTBOL</dt></a> -->
                             </div>
                         </section>
                     </div>
@@ -87,7 +90,8 @@
                     <div class="card card-body">
                         <section class="row pt-2 mx-auto">
                             <div class="col col-3">
-                                <a href="form-de-reservas.php?deporte=voley" class="p-0 m-auto btn btn-success"><dt>VOLEY</dt></a>
+                                <button class="p-0 m-auto btn btn-success" onclick="verificarDisponibilidad('voley')"><dt>VOLEY</dt></button>
+                            <!--    <a href="form-de-reservas.php?deporte=voley" class="p-0 m-auto btn btn-success"><dt>VOLEY</dt></a> -->
                             </div>
                         </section>
                     </div>
@@ -97,7 +101,8 @@
                     <div class="card card-body">
                         <section class="row pt-2 mx-auto">
                             <div class="col col-3">
-                                <a href="form-de-reservas.php?deporte=hockey" class="p-0 m-auto btn btn-success"><dt>HOCKEY</dt></a>
+                                <button class="p-0 m-auto btn btn-success" onclick="verificarDisponibilidad('hockey')"><dt>HOCKEY</dt></button>
+                     <!--           <a href="form-de-reservas.php?deporte=hockey" class="p-0 m-auto btn btn-success"><dt>HOCKEY</dt></a> -->
                             </div>
                         </section>
                     </div>
@@ -107,7 +112,8 @@
                     <div class="card card-body">
                         <section class="row pt-2 mx-auto">
                             <div class="col col-3">
-                                <a href="form-de-reservas.php?deporte=basquet" class="p-0 m-auto btn btn-success"><dt>BASQUET</dt></a>
+                                <button class="p-0 m-auto btn btn-success" onclick="verificarDisponibilidad('basquet')"><dt>BASQUET</dt></button>
+                       <!--       <a href="form-de-reservas.php?deporte=basquet" class="p-0 m-auto btn btn-success"><dt>BASQUET</dt></a>   -->
                             </div>
                         </section>
                     </div>
@@ -120,29 +126,29 @@
         <div class="container posicion-conteiner">
           <div class="row justify-content-center">
               <div class="col-md-8">
-                  <form class="row g-3">
-                      <div class="col-md-3 mt-5 offset-md-2 ">
-                          <p class="text-white parrafo"><strong>Contacto</strong></p>
-                      </div>
-                      <div class="col-md-3 mt-5 offset-md-4">
-                          <p class="text-white parrafo"><strong>Direccion</strong></p>
-                      </div>
-                      <div class="col-md-6 text-center">
+                <form name="Contacto" class="row g-3" action="../php/mandarmail.php" method="POST">
+                    <div class="col-md-3 mt-5 offset-md-2 ">
+                        <p class="text-white parrafo"><strong>Contacto</strong></p>
+                    </div>
+                    <div class="col-md-3 mt-5 offset-md-4">
+                        <p class="text-white parrafo"><strong>Direccion</strong></p>
+                    </div>
+                    <div class="col-md-6 text-center">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Nombre">
-                        <label for="nombre" class="form-label mt-2">Correo Electronico</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Correo">
-                        <label for="nombre" class="form-label mt-2">Dejanos tu consulta</label>
-                        <textarea class="form-control"  cols="45" rows="5"></textarea>
+                        <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" required>
+                        <label for="correo" class="form-label mt-2">Correo Electronico</label>
+                        <input type="email" name="correo" class="form-control" id="correo" placeholder="Correo" required>
+                        <label for="consulta" class="form-label mt-2">Dejanos tu consulta</label>
+                        <textarea name="descripcion" class="form-control" cols="45" rows="5" id="detalles" placeholder="Ingrese su consulta" required></textarea>
                         <div class="col-auto mt-3 mb-3">
-                          <a class="btn btn-light" href="metedo-de-pago.html">Enviar</a>
+                            <input type="submit" name="enviar" class="btn btn-light" value="ENVIAR"> 
+                            <input type="reset" name="borrar" class="btn btn-light" value="BORRAR"> 
                         </div>
-                      </div>
-                      <div class="col-md-6 px-3">
+                    </div>
+                    <div class="col-md-6 px-3">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4699.03323505802!2d-59.79947380969555!3d-34.179924227885095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bbd83298154d17%3A0x1c9857d60d815d81!2sCLUB%20SOCIAL%20Y%20DEPORTIVO%20SAN%20CARLOS!5e0!3m2!1ses-419!2sar!4v1716605343188!5m2!1ses-419!2sar" width="500" height="320" style="border:10px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                      </div>
-                      
-                  </form>
+                    </div>
+                  </form> 
                 </div>
               </div>
           </div>
@@ -179,6 +185,35 @@
           </p>
       </footer>
 
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        function verificarDisponibilidad(deporte) {
+            $.ajax({
+                type: 'POST',
+                url: '../php/verificar_disponibilidad.php',
+                data: { deporte: deporte },
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    if (data.disponible) {
+                        window.location.href = 'form-de-reservas.php?deporte=' + deporte;
+                    } else {
+                        alert('El deporte seleccionado no está disponible en este momento.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al verificar la disponibilidad:', error);
+                    alert('Error al verificar la disponibilidad. Por favor, intenta nuevamente.');
+                }
+            });
+        }
+    </script>
+    <script>
+        // Función para mostrar el mensaje de alerta
+        function mostrarAlerta() {
+            alert('La tienda esta en mantenimiento, perdon por las molestias ocasionadas.');
+        }
+    </script>
 </body>
 </html>

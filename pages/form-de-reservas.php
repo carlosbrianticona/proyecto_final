@@ -21,9 +21,9 @@
             </div>
             <nav>
                 <ul class="nav-link">
-                    <li><a href="#">TIENDA</a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#" onclick="mostrarAlerta()">TIENDA</a></li>
+                    <li><a href="https://www.instagram.com/san_carlos_oficial/?hl=es"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="https://www.facebook.com/club.sancarlos.10/"><i class="fa-brands fa-facebook"></i></a></li>
                     <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
                 </ul>
             </nav>
@@ -41,10 +41,13 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav m-auto mb-2 mb-lg-0">
                 <li class="nav-item px-4">
-                  <a class="nav-link active" href="./pages/club.html">CLUB</a>
+                    <a class="nav-link active" href="../index.html">INCIO</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="../pages/socio.php">SOCIO</a>
+                </li>
+                <li class="nav-item px-4">
+                  <a class="nav-link active" href="club.html">CLUB</a>
                 </li>
                 <li class="nav-item px-4">
                   <a class="nav-link active" href="../pages/reserva-de-canchas.html">RESERVAS DE CANCHA</a>
@@ -109,7 +112,7 @@
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="tipo-de-documento" class="form-label">Tipo de documento</label>
-                            <select name="tipo_documento" class="form-select" id="tipo-de-documento" aria-label="Default select example">
+                            <select  name="tipo_documento" class="form-select" id="tipo-de-documento" aria-label="Default select example">
                                 <?php
                                     require("../php/conexion.php");
                                     $sql="SELECT ID, Descripcion from tipo_documento" ;
@@ -119,31 +122,30 @@
                                     }
                                 ?>
                             </select>
-                            <input type="hidden" id="tipo-de-documento-hidden" name="tipo_documento">
                         </div>
+                        
                         <div class="col-md-4 mt-3">
                         <label for="numero" class="form-label">Número</label>
-                                <label for="numero" class="form-label">(de 8 a 11 digitos)</label>
-                                <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" minlength="8" maxlength="11" required>
+                                <label for="numero" class="form-label">(de 6 a 11 digitos)</label>
+                                <input type="text" name="nr_documento" pattern="[0-9]+" class="form-control" id="numero" placeholder="Nº" minlength="6" maxlength="11" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="sexo" class="form-label">Sexo</label>
-                            <select name="genero" class="form-select" id="sexo" aria-label="Default select example">
+                            <select  name="genero" class="form-select" id="sexo" aria-label="Default select example">
                                 <?php
                                     require("../php/conexion.php");
                                     $sql="SELECT ID, Descripcion from genero" ;
                                     $resultado = $conexion->query($sql);
                                     while ($valores = mysqli_fetch_array($resultado)) {
-                                        echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
+                                    echo '<option value ="'.$valores['ID'].'">'.$valores['Descripcion'].'</option>';
                                     }
                                 ?>
                             </select>
-                            <input type="hidden" id="sexo-hidden" name="genero">
-                        </div>  
+                        </div>
                         <div class="col-md-6 mt-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" name="correo" class="form-control" id="email" placeholder="Email" maxlength="20" required>
+                            <input type="email" name="correo" class="form-control" id="email" placeholder="Email" maxlength="50" required>
                         </div>
                         <div class="col-md-6 mt-3">
                             <label for="fecha-de-nacimiento" class="form-label">Fecha de nacimiento</label>
@@ -171,9 +173,16 @@
                             <label for="fecha_rese" class="form-label">Dia de reserva</label>
                             <input type="date" name="fecha_rese" class="form-control" id="fecha_rese" required>
                         </div>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', (event) => {
+                            const today = new Date().toISOString().split('T')[0];
+                            document.getElementById('fecha_rese').setAttribute('min', today);
+                            });
+                        </script>
                         <div class="col-md-6 mt-3">
                             <label for="sexo" class="form-label">Horario de reserva</label>
-                            <select multiple name="horario_inic[]" class="form-select single-height" id="horario_inic" aria-label="Default select example">
+                            <select multiple name="horario_inic[]" class="form-select single-height" id="horario_inic" aria-label="Default select example" required>
                             <!-- Los horarios disponibles se cargarán aquí -->
                             </select>
                         </div>
@@ -191,7 +200,7 @@
                         </div>
                         <div class="col-md-4 mt-3">
                             <label for="direccion" class="form-label">Calle</label>
-                            <input type="text" name="calle" pattern="[a-zA-Z\s]+" class="form-control" id="direccionca" placeholder="Nombre de calle o Av" maxlength="20" required>
+                            <input type="text" name="calle" pattern="[a-zA-Z0-9\s]+" class="form-control" id="direccionca" placeholder="Nombre de calle o Av" maxlength="25" required>
                             <div class="error-message text" style="display:none; color:white;"></div>
                         </div>
                         <div class="col-md-4 mt-3">
@@ -205,10 +214,21 @@
                                 <input type="submit" name="reservar" class="btn btn-success" value="Reservar">
                             </div>
                             <div class="col-auto">
-                                <input type="reset" name="cancelar_reserva" class="btn btn-danger" value="Cancelar">
+                                <button type="button" name="cancelar_reserva" class="btn btn-danger" id="cancelar_reserva">Cancelar</button>
                             </div>
                         </div>
-                    </form> 
+                    </form>
+                    <script>
+                    document.getElementById('cancelar_reserva').addEventListener('click', function() {
+                    // Simulate form reset
+                    document.querySelector('form').reset();
+                    // Remove all options in the select
+                    const horarioSelect = document.getElementById('horario_inic');
+                    while (horarioSelect.options.length > 0) {
+                    horarioSelect.remove(0);
+                    }
+                    });
+                    </script> 
                 </div>
             </div>
     </main>
@@ -236,7 +256,7 @@ $(document).ready(function() {
     validateInput('#numero', /^[0-9]+$/, 'Solo se permiten números.');
     validateInput('#telefono', /^[0-9]+$/, 'Solo se permiten números.');
     validateInput('#direccion', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
-    validateInput('#direccionca', /^[a-zA-Z\s]+$/, 'Solo se permiten letras y espacios.');
+    validateInput('#direccionca', /^[a-zA-Z0-9\s]+$/, 'Solo se permiten letras, numeros y espacios.');
     validateInput('#direccionalt', /^[0-9]+$/, 'Solo se permiten números.');
 
     // Mostrar/ocultar campo de número de socio
@@ -248,7 +268,9 @@ $(document).ready(function() {
         } else {
             $('#nrsocio').prop('disabled', true).val('');
             // Habilitar campos y limpiar valores
-            $('#nombre, #apellido, #numero, #email, #telefono, #direccion, #direccionca, #direccionalt').prop('readonly', false).val('');
+            $('#nombre, #apellido, #numero, #email, #fecha-de-nacimiento, #telefono, #direccion, #direccionca, #direccionalt').prop('readonly', false).val('');
+            $('#tipo-de-documento').prop('disabled', false);
+            $('#sexo').prop('disabled', false);
         }
     });
 });
@@ -487,6 +509,12 @@ $(document).ready(function() {
             nrSocioInput.disabled = radioSocioNo.checked;
         });
     </script>
+    <script>
+      // Función para mostrar el mensaje de alerta
+      function mostrarAlerta() {
+          alert('La tienda esta en mantenimiento, perdon por las molestias ocasionadas.');
+      }
+    </script>
 
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -497,4 +525,4 @@ $(document).ready(function() {
    
 
 </body>
-</html>
+</html>		

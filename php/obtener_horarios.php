@@ -1,4 +1,3 @@
-
 <?php 
 include("conexion.php");
 
@@ -9,10 +8,18 @@ if (isset($_GET['id_dia']) && isset($_GET['deporte']) && isset($_GET['nrdecancha
   $deporte = intval($_GET['deporte']);
   $nrdecancha = intval($_GET['nrdecancha']);
   
-    $sql = "SELECT hora_inicio, hora_finalizado FROM deporte_cancha_hora LEFT JOIN Reserva ON deporte_cancha_hora.ID= Reserva.`id_deporte_cancha_hora` LEFT JOIN deporte on deporte.ID= deporte_cancha_hora.id_deporte WHERE deporte_cancha_hora.`id_dia`= ? AND deporte.ID= ? AND deporte_cancha_hora.`cancha`= ? AND reserva.id IS NULL; ";
+    $sql = "SELECT hora_inicio, hora_finalizado FROM deporte_cancha_hora LEFT JOIN reserva ON deporte_cancha_hora.ID = reserva.id_deporte_cancha_hora 
+            LEFT JOIN deporte ON deporte.ID = deporte_cancha_hora.id_deporte WHERE deporte_cancha_hora.id_dia = ? 
+            AND deporte.ID = ? AND deporte_cancha_hora.cancha = ? AND deporte_cancha_hora.activa_s_n = 'SI' AND reserva.id IS NULL 
+            union 
+            SELECT hora_inicio, hora_finalizado FROM deporte_cancha_hora LEFT JOIN reserva ON deporte_cancha_hora.ID = reserva.id_deporte_cancha_hora 
+            LEFT JOIN deporte ON deporte.ID = deporte_cancha_hora.id_deporte  
+            join cancelaciones on cancelaciones.id_reserva= reserva.ID 
+            WHERE deporte_cancha_hora.id_dia = ? AND deporte.ID = ? AND deporte_cancha_hora.cancha = ? AND deporte_cancha_hora.activa_s_n = 'SI' 
+            ORDER BY 1,2; ";
     
     $stmt = $conexion->prepare($sql);
-    $stmt->bind_param('iii', $id_dia, $deporte, $nrdecancha); 
+    $stmt->bind_param('iiiiii', $id_dia, $deporte, $nrdecancha, $id_dia, $deporte, $nrdecancha); 
     $stmt->execute();
     $result = $stmt->get_result();
     $horarios = array();

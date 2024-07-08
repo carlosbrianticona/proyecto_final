@@ -69,10 +69,12 @@ if (!$fila) {
         }
     } else {
         echo "<script>
-                alert('El socio ya existe con el número de socio: " . $fila['Numero_de_socio'] . "');
-                window.location.href = '../pages/socio.php';
+                alert('El numero de documento ya existe, verifique los datos he intente nuevamente.');
+                window.history.back();
               </script>";
     }
+    //el comentario del alert
+    /* alert('El numero de documento ya existe, verifique los datos he intente nuevamente. El socio ya existe con el número de socio: " . $fila['Numero_de_socio'] . "');*/
 }
 
 mysqli_close($conexion);

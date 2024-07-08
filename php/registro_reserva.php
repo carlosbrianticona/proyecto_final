@@ -1,29 +1,16 @@
 <?php
 
-
-
 include("conexion.php");
 $radiosocio = $_POST['radiosocio'];
 $nrsocio = isset($_POST['nrsocio']) ? $_POST['nrsocio'] : null;
-$nombre = $_POST['nombre'];
-$apellido = $_POST['apellido'];
-$tipo_documento = isset($_POST['tipo_documento']) ? $_POST['tipo_documento'] : null;
-//$tipo_documento = $_POST['tipo_documento'];
-$nr_documento = $_POST['nr_documento'];
-//$genero = $_POST['genero'];
-$sexo = isset($_POST['genero']) ? $_POST['genero'] : null;
-$correo = $_POST['correo'];
-$fecha_nac = $_POST['fecha_nac'];
-$nrdecancha = $_POST['nrdecancha'];
-$telefono = $_POST['telefono'];
-$fecha_rese = $_POST['fecha_rese'];
-$horario_inic = $_POST['horario_inic']; // Array de horarios seleccionados
-$localidad = $_POST['localidad'];
-$calle = $_POST['calle'];
-$altura = $_POST['altura'];
+
 $deporte = $_POST['deporte'];
 $nrdecancha = $_POST['nrdecancha'];
 $id_dia = $_POST['id_dia'];
+$fecha_rese = $_POST['fecha_rese'];
+$horario_inic = $_POST['horario_inic']; // Array de horarios seleccionados
+
+
 
  // Recuperar el deporte seleccionado
 
@@ -36,7 +23,7 @@ if (!is_numeric($deporte)) {
 // Verifica si la persona ya está registrada o si es un nuevo registro
 if ($radiosocio == 'si' && $nrsocio) {
     // Si es socio, buscar la persona en la base de datos por el número de socio
-    $query = "SELECT ID FROM persona WHERE Numero_de_socio = ?";
+    $query = "SELECT ID, Nombre, Apellido, Email FROM persona WHERE Numero_de_socio = ?";
     $stmt = $conexion->prepare($query);
     $stmt->bind_param("i", $nrsocio);
     $stmt->execute();
@@ -44,18 +31,89 @@ if ($radiosocio == 'si' && $nrsocio) {
     $persona = $result->fetch_assoc();
     if ($persona) {
         $id_persona = $persona['ID'];
+        $nombre = $persona['Nombre'];
+        $apellido = $persona['Apellido'];
+        $correo = $persona['Email'];
     } else {
         // Manejar el caso en que no se encuentra el socio
         die("Número de socio no encontrado.");
     }
 } else {
-    // Si no es socio o es un nuevo registro, insertar los datos en la tabla persona
-    $query = "INSERT INTO persona (Numero_Documento, id_tipo_de_documento, Apellido, Nombre, Numero_de_socio, Email, id_genero, activa_s_n, telefono, fecha_nac, Localidad, Calle, Altura)
-              VALUES (?, ?, ?, ?, ?, ?, ?, 'SI', ?, ?, ?, ?, ?)";
+    // Si no es socio verificar si el número de documento ya existe
+
+    $nr_documento = $_POST['nr_documento'];
+    $query = "SELECT ID, Nombre, Apellido, Email, activa_s_n FROM persona WHERE Numero_Documento = ?";
     $stmt = $conexion->prepare($query);
-    $stmt->bind_param("iissisiisssi", $nr_documento, $tipo_documento, $apellido, $nombre, $nrsocio, $correo, $genero, $telefono, $fecha_nac, $localidad, $calle, $altura);
+    $stmt->bind_param("i", $nr_documento);
     $stmt->execute();
-    $id_persona = $stmt->insert_id;
+    $result = $stmt->get_result();
+    $persona = $result->fetch_assoc();
+    if ($persona) {
+        if ($persona['activa_s_n'] === 'NO') {
+            echo "<script>
+                    alert('Persona no disponible comunicate con el club.');
+                    window.location.href = '../pages/reserva-de-canchas.html';
+                  </script>";
+            exit();
+        }
+        // Si el documento ya existe, usar los datos existentes
+        $id_persona = $persona['ID'];
+        $nombre = $persona['Nombre'];
+        $apellido = $persona['Apellido'];
+        $correo = $persona['Email'];
+    } else {
+        // Si no existe el documento, insertar los datos en la tabla persona
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $tipo_documento = $_POST["tipo_documento"];
+        $nr_documento = $_POST['nr_documento'];
+        $genero = $_POST["genero"];
+        $correo = $_POST['correo'];
+        $fecha_nac = $_POST['fecha_nac'];
+        $telefono = $_POST['telefono'];
+        $localidad = $_POST['localidad'];
+        $calle = $_POST['calle'];
+        $altura = $_POST['altura'];
+        $query = "INSERT INTO persona (Numero_Documento, id_tipo_de_documento, Apellido, Nombre, Numero_de_socio, Email, id_genero, activa_s_n, telefono, fecha_nac, Localidad, Calle, Altura)
+                VALUES (?, ?, ?, ?, ?, ?, ?, 'SI', ?, ?, ?, ?, ?)";
+        $stmt = $conexion->prepare($query);
+        $stmt->bind_param("iissisiisssi", $nr_documento, $tipo_documento, $apellido, $nombre, $nrsocio, $correo, $genero, $telefono, $fecha_nac, $localidad, $calle, $altura);
+        $stmt->execute();
+        $id_persona = $stmt->insert_id;
+    }
+
+
+
+    
+}
+
+// Verificar si ya existe una reserva futura para la persona
+$query = "SELECT reserva.ID, reserva.fecha_de_reserva, deporte_cancha_hora.hora_inicio, deporte_cancha_hora.hora_finalizado, deporte.Descripcion as nombre_deporte, persona.Nombre, persona.Apellido
+FROM reserva 
+JOIN deporte_cancha_hora ON reserva.id_deporte_cancha_hora = deporte_cancha_hora.ID 
+JOIN deporte ON deporte_cancha_hora.id_deporte = deporte.ID
+JOIN persona ON reserva.id_persona = persona.ID
+WHERE reserva.id_persona = ? AND reserva.fecha_de_reserva >= CURDATE();";
+$stmt = $conexion->prepare($query);
+$stmt->bind_param("i", $id_persona);
+$stmt->execute();
+$result = $stmt->get_result();
+$reserva_existente = $result->fetch_assoc();
+// Crear variable para almacenar el mensaje de alerta (si existe reserva futura)
+$alert_message = "";
+
+if ($reserva_existente) {
+    $reserva_id = $reserva_existente['ID'];
+    $reserva_fecha = $reserva_existente['fecha_de_reserva'];
+    $reserva_hora = $reserva_existente['hora_inicio'];
+    $reserva_hora_final = $reserva_existente['hora_finalizado'];
+    $nombre_deporte = $reserva_existente['nombre_deporte'];
+    $nombre_persona = $reserva_existente['Nombre'];
+    $apellido_persona = $reserva_existente['Apellido'];
+    // Comprobar si la fecha de la reserva es futura
+    if (strtotime($reserva_fecha) >= strtotime(date('Y-m-d'))) {
+        $alert_message = "RECORDATORIO: Tienes una reserva previamente registrada a nombre de $nombre_persona $apellido_persona para $nombre_deporte con el número de reserva: $reserva_id para la fecha $reserva_fecha desde las $reserva_hora hrs hasta las $reserva_hora_final hrs.";
+    }
 }
 
 // Ahora insertar las reservas en la tabla reserva
@@ -102,41 +160,8 @@ foreach ($horario_inic as $hora) {
         die("Horario no encontrado.");
     }
 }
-/*
-$mail = new PHPMailer(true);
 
-try {
-    // Configurar el servidor SMTP externo (por ejemplo, Gmail SMTP)
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth = true;
-    $mail->Username = 'mlpqqot@gmail.com';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port = 587;
 
-    // Resto de tu código...
-
-    // Después de insertar la reserva en la tabla reserva
-    //$id_reserva = $stmt->insert_id;
-
-    // Enviar el correo electrónico de confirmación
-    $to = $correo;
-    $subject = "Confirmación de Reserva";
-    $message = "Hola $nombre $apellido,\n\nTu reserva ha sido realizada con éxito.\nNúmero de reserva: $id_reserva\nFecha de reserva: $fecha_rese\n\nGracias por tu preferencia.";
-    
-    // Configurar el correo electrónico
-    $mail->setFrom('mlpqqto@gmail.com', 'Marcos Luis');
-    $mail->addAddress($to);
-    $mail->Subject = $subject;
-    $mail->Body = $message;
-
-    // Enviar el correo electrónico
-    $mail->send();
-    echo 'El correo electrónico ha sido enviado correctamente.';
-    
-} catch (Exception $e) {
-    echo "Error al enviar el correo electrónico: {$mail->ErrorInfo}";
-} */
 
 // PARA MOSTRAR LOS BOTONEEES DE REDIRECCIONAMIENTO AL PAGO
 echo "
@@ -162,6 +187,7 @@ echo "
                     <h5 class='modal-title'>Reserva Completa</h5>
                 </div>
                 <div class='modal-body'>
+                    <p>$alert_message</p> <!-- Mostrar el mensaje de alerta aquí -->
                     <p>Tu número de reserva es $id_reserva. ¿Deseas pagar ahora?</p>
                 </div>
                 <div class='modal-footer'>
