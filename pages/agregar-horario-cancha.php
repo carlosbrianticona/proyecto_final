@@ -25,7 +25,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $resultado = $stmt->get_result();
 
     if ($resultado->num_rows > 0) {
-        echo "<script>alert('El horario que deseas se superpone con uno que ya existe, modificalo he intenta nuevamente.'); window.location.href = 'agregar-horario-cancha.php';</script>";
+        $row = $resultado->fetch_assoc();
+        if ($row['activa_s_n'] === 'NO') {
+            // Actualizar el registro a 'SI'
+            $sql = "UPDATE deporte_cancha_hora 
+                    SET activa_s_n = 'SI' 
+                    WHERE id_deporte = ? AND id_dia = ? AND cancha = ? AND hora_inicio = ? AND hora_finalizado = ?";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bind_param("iiiss", $id_deporte, $id_dia, $cancha, $hora_inicio, $hora_finalizado);
+            if ($stmt->execute()) {
+                echo "<script>alert('El horario que deseas agregar ya existe, se activo nuevamente.'); window.location.href = 'agregar-horario-cancha.php';</script>";
+            } else {
+                echo "<script>alert('Error al activar el horario.'); window.location.href = 'agregar-horario-cancha.php';</script>";
+            }
+        } else {
+            echo "<script>alert('El horario que deseas se superpone con uno que ya existe, modifícalo e intenta nuevamente.'); window.location.href = 'agregar-horario-cancha.php';</script>";
+        }
     } else {
         // Si no existe, insertar el nuevo registro
         $sql = "INSERT INTO deporte_cancha_hora (id_deporte, id_dia, cancha, hora_inicio, hora_finalizado, activa_s_n) 
