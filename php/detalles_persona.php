@@ -150,11 +150,12 @@ $conexion->close();
     // Validar número de documento en tiempo real
     $('#documento').on('input', function() {
             const documento = $(this).val();
+            const id = $('#id').val();
             if (/^[0-9]+$/.test(documento)) {
                 $.ajax({
                     url: 'validar_documento.php',
                     type: 'POST',
-                    data: { documento: documento },
+                    data: { documento: documento, id: id },
                     success: function(response) {
                         var data = JSON.parse(response);
                         if (data.status === 'error') {
@@ -181,13 +182,14 @@ $conexion->close();
 
             // Validar el campo del número de documento antes de enviar
             const documento = $('#documento').val();
+            const id = $('#id').val();
             let valid = true;
 
             $.ajax({
                 url: 'validar_documento.php',
                 type: 'POST',
                 async: false,
-                data: { documento: documento },
+                data: { documento: documento, id: id },
                 success: function(response) {
                     var data = JSON.parse(response);
                     if (data.status === 'error') {

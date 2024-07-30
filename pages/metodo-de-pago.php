@@ -132,11 +132,11 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label">Nombre del titular</label>
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+                                <input type="text" class="form-control" id="nombre" placeholder="Nombre" pattern="[a-zA-Z\s]+" maxlength="20">
                             </div>
                             <div class="col-md-6">
                                 <label for="apellido" class="form-label">Número de tarjeta</label>
-                                <input type="text" class="form-control" id="apellido" placeholder="Número de tarjeta">
+                                <input type="text" class="form-control" id="apellido" placeholder="Número de tarjeta" pattern="[0-9]+" maxlength="16">
                             </div>
                             <div class="col-md-6">
                                 <label for="fecha" class="form-label">Fecha de caducidad</label>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="codigo" class="form-label">Código de seguridad</label>
-                                <input type="text" class="form-control" id="codigo" placeholder="3 dígitos">
+                                <input type="text" class="form-control" id="codigo" placeholder="3 dígitos" pattern="[0-9]+" maxlength="3">
                             </div>
                             <div class="col-auto offset-md-5 mt-5">
                                 <input type="hidden" id="reserva_id" value="<?php echo $id_reserva; ?>">
